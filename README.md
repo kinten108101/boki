@@ -20,11 +20,11 @@ yarn run flatpak:run
 
 If you're using an LSP and wish to have linting (e.g. lsp-typescript).
 
-Install development NPM packages. `yarn` is preferred.
+Install the development NPM packages in this project:
 
 ```sh
 yarn install
 ```
 
-These packages are type declarations for the GTK and Adwaita libraries. Now you should have wokring type linting in your IDE.
+These packages are type declarations for the GTK and Adwaita libraries. Now you should have working type linting in your IDE.
 
