@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/com/github/kinten108101/Boki">
+    @UI@
+    <file>style.css</file>
+    <file>style-dark.css</file>
+  </gresource>
+  <gresource prefix="/com/github/kinten108101/Boki/icons/scalable/actions">
+    @ICONS@
+  </gresource>
+</gresources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<component type="desktop">
+  <id>com.github.kinten108101.Boki</id>
+  <launchable type="desktop-id">com.github.kinten108101.Boki.desktop</launchable>
+  <name translatable="no">Boki</name>
+  <developer_name translatable="no">Kinten Le</developer_name>
+  <update_contact>kinten108101@protonmail.com</update_contact>
+  <description><p>No description</p></description>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  <translation type="gettext">com.github.kinten108101.Boki</translation>
+  <url type="homepage">https://github.com/kinten108101/boki</url>
+  <url type="bugtracker">https://github.com/kinten108101/boki/issues</url>
+  <url type="vcs-browser">https://github.com/kinten108101/boki</url>
+  <content_rating type="oars-1.1" />
+  <kudos>
+    <kudo>HiDpiIcon</kudo>
+    <kudo>HighContrast</kudo>
+    <kudo>ModernToolkit</kudo>
+  </kudos>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </recommends>
+</component>

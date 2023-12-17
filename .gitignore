@@ -1,0 +1,4 @@
+node_modules/
+.flatpak-builder
+build-meson/
+build-flatpak/
