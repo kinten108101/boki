@@ -55,6 +55,19 @@ configure_file(
 	install_dir: get_option('datadir') / 'applications'
 )
 
+logo_path = 'app.svg'
+
+if get_option('buildtype') == 'debug'
+  logo_path = 'app-devel.svg'
+endif
+
+configure_file(
+  input: logo_path,
+  output: 'com.github.kinten108101.Boki.svg',
+  install_dir: get_option('datadir') / 'icons' / 'hicolor' / 'scalable' / 'apps',
+  copy: true,
+)
+
 
 configure_file(
   configuration : {
