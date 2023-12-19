@@ -28,6 +28,9 @@
     {
       "name": "boki-app",
       "buildsystem": "meson",
+      "config-opts": [
+      	"-Dbuildtype=release"
+      ],
       "sources": [
         {
           "type": "dir",

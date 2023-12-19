@@ -9,3 +9,7 @@ insert_final_newline = true
 [*.{build,json,doap,blp,js}]
 indent_style = tab
 indent_size = 4
+
+[*.{py}]
+indent_style = space
+indent_size = 4

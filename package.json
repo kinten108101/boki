@@ -1,11 +1,5 @@
 {
   "license": "MIT",
-  "scripts": {
-  	"meson:install": "rm -rf build-meson && meson setup --reconfigure build-meson && sudo meson install -C build-meson",
-    "meson:run": "com.github.kinten108101.Boki",
-    "flatpak:install": "flatpak run org.flatpak.Builder --force-clean --keep-build-dirs --disable-updates --user --install build-flatpak com.github.kinten108101.Boki.json",
-    "flatpak:run": "flatpak run com.github.kinten108101.Boki"
-  },
   "devDependencies": {
     "@girs/adw-1": "^1.4.0-3.2.6",
     "@girs/gtk-4.0": "^4.12.3-3.2.6",
