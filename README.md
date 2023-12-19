@@ -1,5 +1,5 @@
 <div align="center">
-<img style="vertical-align: middle;" src="data/app.svg" alt="Project's logo" width="120" height="120" align="center" />
+<img style="vertical-align: middle;" src="data/resources/app.svg" alt="Project's logo" width="120" height="120" align="center" />
 <br />
 <h1>Boki</h1>
 </div>
