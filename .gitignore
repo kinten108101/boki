@@ -4,3 +4,4 @@ build-meson/
 build-flatpak/
 yarn.lock
 package-lock.json
+__pycache__
