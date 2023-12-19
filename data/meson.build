@@ -1,23 +1,13 @@
 interface = [
-	'ui/window.blp',
+	'ui/window.ui',
 ]
 
 interface_files = files(interface)
 
-blueprints = custom_target('blueprints',
-	input: interface_files,
-	output: '.',
-	build_by_default: true,
-	build_always_stale: true,
-	command: [blueprint_compiler,
-		'batch-compile',
-		'@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
-)
-
 UI = ''
 foreach x : interface
 	UI = ''.join([UI, '<file>'])
-	UI = ''.join([UI, x.replace('.blp', '.ui')])
+	UI = ''.join([UI, x])
 	UI = ''.join([UI, '</file>'])
 endforeach
 
@@ -45,7 +35,7 @@ data_manifest = configure_file(
 data_resource = gnome.compile_resources(
 	'com.github.kinten108101.Boki.data',
 	data_manifest,
-	dependencies: blueprints,
+	dependencies: interface_files,
 	gresource_bundle: true,
 	install: true,
 	install_dir: get_option('datadir') / 'com.github.kinten108101.Boki',
