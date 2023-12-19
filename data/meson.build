@@ -65,6 +65,17 @@ configure_file(
 	install_dir: get_option('datadir') / 'applications'
 )
 
+
+configure_file(
+  configuration : {
+  		'DATA_DIR': get_option('datadir'),
+		},
+  input : 'app.service',
+  output : 'com.github.kinten108101.Boki.service',
+  install : true,
+  install_dir : get_option('datadir') / 'dbus-1' / 'services',
+)
+
 configure_file(
 	input: 'gresources.gschema.xml',
 	output: 'com.github.kinten108101.Boki.gschema.xml',
