@@ -21,7 +21,6 @@
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
     "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": false,   // ignore some issues in the typedef libs
     "allowJs": true,
     "checkJs": true
