@@ -38,6 +38,7 @@ exec = configure_file(
 		'VERSION': meson.project_version(),
 		'PREFIX': get_option('prefix'),
 		'LIBDIR': get_option('prefix') / get_option('libdir'),
+		'BUILD_TYPE': get_option('buildtype'),
 	},
 )
 

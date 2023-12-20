@@ -11,6 +11,8 @@ imports.package.init({
   libdir: '@LIBDIR@',
 });
 
+globalThis.buildtype = '@BUILD_TYPE@';
+
 setConsoleLogDomain('boki');
 
 const getMain = new GLib.MainLoop(null, false);
