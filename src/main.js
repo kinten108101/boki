@@ -16,6 +16,12 @@ Gio._promisify(Adw.MessageDialog.prototype, 'choose', 'choose_finish');
 Gio._promisify(Gtk.FileDialog.prototype, 'save', 'save_finish');
 Gio._promisify(Gtk.FileDialog.prototype, 'select_folder', 'select_folder_finish');
 
+/* Gio.Subprocess */
+Gio._promisify(Gio.Subprocess.prototype, 'communicate_async');
+Gio._promisify(Gio.Subprocess.prototype, 'communicate_utf8_async');
+Gio._promisify(Gio.Subprocess.prototype, 'wait_async');
+Gio._promisify(Gio.Subprocess.prototype, 'wait_check_async');
+
 Gio._promisify(Gio.FileEnumerator.prototype, 'close_async', 'close_finish');
 Gio._promisify(Gio.FileEnumerator.prototype, 'next_files_async', 'next_files_finish');
 Gio._promisify(Gio.File.prototype, 'append_to_async', 'append_to_finish');

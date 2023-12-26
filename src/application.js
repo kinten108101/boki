@@ -9,6 +9,16 @@ import { useFile } from './actions/file.js';
 import { retract_path } from './utils/files.js';
 import { new_from_appdata } from './about.js';
 
+const get_xdg_download_dir = async () => {
+	const proc = Gio.Subprocess.new(['xdg-user-dir', 'DOWNLOAD'], Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE);
+	const [stdout, stderr] = await proc.communicate_utf8_async(null, null);
+
+	if (proc.get_successful() && stdout !== null)
+        return stdout.replaceAll('\n', '');
+    else
+    	throw new Error(stderr || '');
+};
+
 export function Application() {
 	GLib.log_set_debug_enabled(globalThis.is_devel);
 
@@ -22,12 +32,14 @@ export function Application() {
 		schema_id: 'com.github.kinten108101.Boki',
 	});
 
-	/**
 	if (settings.get_boolean('first-launch')) {
-		settings.set_value();
-		settings.set_boolean('first-launch', false);
+		(async () => {
+			const download_dir = await get_xdg_download_dir();
+			settings.set_string('download-directory', retract_path(download_dir));
+
+			settings.set_boolean('first-launch', false);
+		})().catch(logError);
 	}
-	**/
 
 	const quit = new Gio.SimpleAction({
 		name: 'quit',
