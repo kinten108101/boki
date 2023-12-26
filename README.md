@@ -9,6 +9,8 @@
 
 Boki is a Steam Workshop downloader client for the GNOME desktop.
 
+The logo is inspired by an artwork of Tony Zenitium, find it [here](https://zenitium.artstation.com/projects/3dm1XE) and [here](https://www.artstation.com/artwork/3dm1XE) (the latter link is dead).
+
 ## Development
 
 This project uses Flatpak, an app container technology. Your Linux distro should have this installed by default, otherwise you'll have to install it manually.
