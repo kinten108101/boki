@@ -20,7 +20,7 @@ msgstr ""
 msgid "Must specify a location to save."
 msgstr "Phải chọn địa điểm lưu về."
 
-msgid "Get file from Steam Workshop"
+msgid "Get files from Steam Workshop"
 msgstr "Lấy tập tin từ Steam Workshop"
 
 msgid "Development"
