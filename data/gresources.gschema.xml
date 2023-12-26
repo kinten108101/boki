@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
   <schema id="com.github.kinten108101.Boki" path="/com/github/kinten108101/Boki/">
+    <key name="first-launch" type="b">
+      <default>true</default>
+    </key>
+    <key name="download-directory" type="s">
+      <default>""</default>
+    </key>
   </schema>
 </schemalist>

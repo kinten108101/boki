@@ -11,9 +11,12 @@ imports.package.init({
   libdir: '@LIBDIR@',
 });
 
-globalThis.buildtype = '@BUILD_TYPE@';
+let buildtype = '@BUILD_TYPE@';
+globalThis.is_devel = (buildtype === 'debug');
 
 setConsoleLogDomain('boki');
+
+pkg.initGettext();
 
 const getMain = new GLib.MainLoop(null, false);
 // @ts-expect-error

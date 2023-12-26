@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <component type="desktop">
+  <translation type="gettext">com.github.kinten108101.Boki</translation>
   <id>com.github.kinten108101.Boki</id>
   <launchable type="desktop-id">com.github.kinten108101.Boki.desktop</launchable>
   <name translatable="no">Boki</name>
   <developer_name translatable="no">Kinten Le</developer_name>
   <update_contact>kinten108101@protonmail.com</update_contact>
-  <description><p>No description</p></description>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>GPL-3.0</project_license>
-  <translation type="gettext">com.github.kinten108101.Boki</translation>
+  <project_license>MIT_X11</project_license>
+  <summary translatable="yes">No summary</summary>
+  <description translatable="yes"><p>No description</p></description>
   <url type="homepage">https://github.com/kinten108101/boki</url>
   <url type="bugtracker">https://github.com/kinten108101/boki/issues</url>
   <url type="vcs-browser">https://github.com/kinten108101/boki</url>
   <content_rating type="oars-1.1" />
+  <releases>
+    <release version="beta" date="2023-11-10">
+      <description translatable="yes">
+        Early access to Boki, please report any bug you found!
+      </description>
+    </release>
+  </releases>
   <kudos>
     <kudo>HiDpiIcon</kudo>
     <kudo>HighContrast</kudo>

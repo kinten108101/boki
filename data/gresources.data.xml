@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/com/github/kinten108101/Boki">
+    <file>gtk/help-overlay.ui</file>
     @UI@
     <file>style.css</file>
     <file>style-dark.css</file>
+    <file>com.github.kinten108101.Boki.metainfo.xml</file>
   </gresource>
   <gresource prefix="/com/github/kinten108101/Boki/icons/scalable/actions">
     @ICONS@

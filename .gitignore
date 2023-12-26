@@ -3,6 +3,7 @@ node_modules/
 build-meson/
 build-flatpak/
 data/ui/*.ui
+data/gtk/*.ui
 yarn.lock
 package-lock.json
 __pycache__

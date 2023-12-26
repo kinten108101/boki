@@ -1,4 +1,5 @@
 interface = [
+	'ui/preferences.ui',
 	'ui/window.ui',
 ]
 

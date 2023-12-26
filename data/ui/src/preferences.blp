@@ -1,0 +1,50 @@
+using Gtk 4.0;
+using Adw 1;
+using Gio 2.0;
+
+Adw.PreferencesWindow preferences {
+	modal: true;
+	default-width: 400;
+	default-height: 500;	
+
+	Adw.PreferencesPage {
+		icon-name: "applications-system-symbolic";
+    	title: _("General");
+
+    	Adw.PreferencesGroup {
+    		Adw.ActionRow default_directory_row {
+		        title: _("Download Directory");
+		        subtitle: "Select Location"; // Placeholder
+		        activatable-widget: set_default_directory;
+
+		        [suffix]
+		        Gtk.Button set_default_directory {
+		        	valign: center;
+		        	halign: center;
+		        	action-name: 'file.select-folder';
+		        	action-target: '("download-directory",)';
+		        	icon-name: 'document-open-symbolic';
+		        	styles ['flat']
+		        }
+
+		        [suffix]
+		        Gtk.Button {
+		        	valign: center;
+		        	icon-name: 'user-trash-symbolic';
+		        	styles ['flat']
+		        	action-name: 'file.set';
+		        	action-target: '("download-directory","")';
+		        }
+	    	}
+    	}
+	}
+}
+
+Adw.PreferencesPage devel_page {
+	icon-name: "applications-science-symbolic";
+	title: _("Development");
+
+	Adw.ActionRow {
+		title: 'OK';
+	}
+}

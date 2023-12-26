@@ -1,0 +1,57 @@
+using Gtk 4.0;
+
+Gtk.ShortcutsWindow help_overlay {
+  modal: true;
+
+  Gtk.ShortcutsSection {
+    section-name: 'all';
+    title: _('All');
+    max-height: 10;
+
+    Gtk.ShortcutsGroup {
+      title: _('General');
+
+      Gtk.ShortcutsShortcut {
+        title: _('Quit');
+        action-name: 'app.quit';
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _('Toggle primary menu');
+        accelerator: 'F10';
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _('New window');
+        action-name: 'app.new-window';
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _('Close window');
+        action-name: 'window.close';
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _('Preferences');
+        action-name: 'app.show-preferences';
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _('Keyboard Shortcuts');
+        action-name: 'win.show-help-overlay';
+      }
+    }
+
+    Gtk.ShortcutsGroup {
+      title: _('Browsing');
+
+      Gtk.ShortcutsShortcut {
+        title: _('Go back');
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _('Go forth');
+      }
+    }
+  }
+}

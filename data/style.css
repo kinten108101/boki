@@ -1,0 +1,20 @@
+.invisible-text label {
+  opacity: 0;
+}
+
+.download-page-row {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.toolbar {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.thin-button {
+  padding-bottom: 0;
+  padding-top: 0;
+  font-weight: bold;
+}

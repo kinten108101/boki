@@ -1,17 +1,439 @@
 using Gtk 4.0;
+using Gio 2.0;
 using Adw 1;
 
-Adw.Window window {
-	default-height: 800;
-	default-width: 400;
+Gtk.FileDialog set_location_dialog {
+	filters:
+		Gio.ListStore  {
+			Gtk.FileFilter {
+				patterns ['*']
+			}
+		};
+}
 
-	Gtk.Box {
-		orientation: vertical;
+Adw.MessageDialog stop_download_dialog {
+	hide-on-close: true;
+	heading: _('Stop downloading?');
+	body: _('You will lose all progress.');
+	modal: true;
+	responses [
+		cancel: _('Cancel'),
+		stop: _('Stop') destructive,
+	]
+}
 
-		Adw.HeaderBar {}
+menu primary_menu {
+  section {
+    item (_("Preferences"), "app.show-preferences")
+    item (_("Keyboard Shortcuts"), "win.show-help-overlay")
+    item (_("About Boki"), "app.show-about")
+  }
+}
 
-		Gtk.Box {
-			orientation: vertical;
-		}
+Adw.ApplicationWindow window {
+	default-height: 600;
+	default-width: 420;
+
+	Adw.ToastOverlay {
+		child:
+			Adw.NavigationView navigation_stack {
+				Adw.NavigationPage {
+					title: _('Home');
+					tag: 'home';
+					child:
+						Adw.ToolbarView {
+							[top]
+							Adw.HeaderBar {
+								title-widget:
+									Adw.WindowTitle {
+										title: 'Boki';
+									};
+
+								[end]
+								Gtk.MenuButton {
+									icon-name: 'open-menu-symbolic';
+									menu-model: primary_menu;
+									primary: true;
+									tooltip-text: _('Main Menu');
+								}
+							}
+
+							content:
+								Gtk.Box {
+									orientation: vertical;
+									vexpand: true;
+
+									Adw.Clamp {
+										vexpand: true;
+										maximum-size: 300;
+
+										Adw.StatusPage {
+											icon-name: 'steam-symbolic';
+											title: _('Get file from Steam Workshop');
+											description: _('Click \"Enter URL...\" to proceed.');
+											child:
+												Gtk.Box {
+													orientation: vertical;
+
+													Gtk.Button enter_url_button {
+														label: _('Enter _URL...');
+														halign: center;
+														styles ['suggested-action', 'pill']
+														use-underline: true;
+
+														action-name: 'navigation.push';
+														action-target: '\"url\"';
+													}
+												};
+										}
+									}
+								};
+						};
+				}
+
+				Adw.NavigationPage {
+					title: _('Enter URL');
+					tag: 'url';
+					child:
+						Adw.ToolbarView {
+							[top]
+							Adw.HeaderBar {
+								title-widget:
+									Adw.WindowTitle {
+										title: 'Boki';
+									};
+
+								[end]
+								Gtk.MenuButton {
+									icon-name: 'open-menu-symbolic';
+									menu-model: primary_menu;
+									primary: true;
+									tooltip-text: _('Main Menu');
+								}
+							}
+
+							content:
+								Adw.PreferencesPage {
+								    Adw.PreferencesGroup {
+								      Adw.EntryRow url_bar {
+								        title: _('URL');
+								        hexpand: true;
+								        input-hints: no_spellcheck | lowercase;
+								      }
+
+								      Gtk.Label {
+								        label: _('The file associated with this Workshop page will be validated then downloaded.');
+								        xalign: 0; // left align
+								        margin-top: 12;
+								        wrap: true;
+								        styles ["dim-label", "caption"]
+								      }
+
+								      Gtk.Label msg {
+								        xalign: 0; // left align
+								        margin-top: 12;
+								        wrap: true;
+								        wrap-mode: word_char;
+								        styles ["caption", "error"]
+								      }
+								    }
+
+								    Adw.PreferencesGroup {
+								        $StvpkSpinningButton validate_button {
+								          halign: center;
+								          valign: center;
+								          styles ['suggested-action', 'pill']
+								          label: _('Validate');
+								          tooltip-text: _('Requires internet connection');
+								          action-name: 'win.url-validate';
+								          // action-target is set in program
+								        }
+								    }
+								  };
+						};
+				}
+
+				Adw.NavigationPage {
+					title: _('Preview');
+					tag: 'preview';
+					can-pop: false;
+					child:
+						Adw.ToolbarView {
+							[top]
+							Adw.HeaderBar {
+								title-widget:
+									Adw.WindowTitle {
+										title: 'Boki';
+									};
+
+								[start]
+								Gtk.Button {
+							        valign: center;
+							        label: _('Cancel');
+							        tooltip-text: _('Return to \"Enter URL\"'); // previous page
+							        action-name: 'navigation.pop';
+							        styles ['opaque', 'thin-button']
+						        }
+
+								[end]
+								Gtk.MenuButton {
+									icon-name: 'open-menu-symbolic';
+									menu-model: primary_menu;
+									primary: true;
+									tooltip-text: _('Main Menu');
+								}
+							}
+
+							content:
+								Gtk.Box {
+									orientation: vertical;
+
+									Gtk.Overlay {
+										child:
+											Adw.PreferencesPage {
+												vexpand: true;
+
+											    Adw.PreferencesGroup {
+											      Adw.ActionRow {
+											        styles ["download-page-row"]
+											        [prefix]
+											        Gtk.Grid {
+											          hexpand: true;
+											          column-spacing: 10;
+
+											          Gtk.Box {
+											            hexpand: true;
+											            orientation: vertical;
+											            valign: center;
+
+											            Gtk.Label addon_name {
+											              styles ["title"]
+											              label: '广州增城 （Zengcheng）Lv7.3'; // placeholder
+											              ellipsize: end;
+											              xalign: 0;
+											            }
+
+											            Gtk.Label creator {
+											              styles ["subtitle"]
+											              label: '21lovely'; // placeholder
+											              ellipsize: end;
+											              xalign: 0;
+											            }
+
+											            layout {
+											              row: 0;
+											              column: 1;
+											            }
+											          }
+
+											          Gtk.Label excerpt {
+											            visible: true;
+											            styles ["dim-label"]
+											            label: '人最宝贵的东西是生命。生命对人来说只有一次。因此，人的一生应当这样度过：当一个人回首往事时，不因虚度年华而悔恨，也不因碌碌无为而羞愧；这样，在他临死的时候，能够说，我把整个生命'; // placeholder
+											            margin-top: 5;
+
+											            single-line-mode: true;
+											            use-markup: true;
+											            xalign: 0;
+											            wrap: true;
+											            wrap-mode: word_char;
+											            ellipsize: end;
+											            lines: 2;
+
+											            layout {
+											              row: 1;
+											              column: 1;
+											            }
+											          }
+											        }
+											      }
+											    }
+
+											    Adw.PreferencesGroup {
+											      title: _('File Details');
+
+											      Adw.ActionRow size {
+											        title: _('Estimated Size');
+											        subtitle: '52 MB'; // placeholder
+											        styles ['property']
+											        activatable-widget: copy_size_button;
+
+											        [suffix]
+											        Gtk.Button copy_size_button {
+											        	valign: center;
+											        	halign: center;
+											        	icon-name: 'edit-copy-symbolic';
+											        	styles ['flat']
+
+											        	action-name: 'copy-text.copy-text';
+											        	action-target: '\"builder(size.subtitle)\"';
+											        }
+											      }
+											    }
+
+											    Adw.PreferencesGroup {
+											    	title: _('Options');
+
+											    	Adw.ActionRow set_location_row {
+												        title: _("Location");
+												        subtitle: "Select Location";
+												        activatable-widget: set_location_button;
+
+												        [suffix]
+												        Gtk.Button set_location_button {
+												        	styles ['flat']
+												        	icon-name: 'document-open-symbolic';
+												          	valign: center;
+												          	action-name: 'file.save-file';
+												          	action-target: '("set-location","{set_location_dialog}")';
+												        }
+												    }
+
+												    Gtk.Label {
+												    	margin-top: 12;
+												        wrap: true;
+												        wrap-mode: word_char;
+												    	xalign: 0; // left align
+												    	styles ['dim-label', 'caption']
+												    	label: _('The file will be saved under this path.');
+												    }
+
+												    Gtk.Label set_location_error {
+												        xalign: 0; // left align
+												        margin-top: 12;
+												        wrap: true;
+												        wrap-mode: word_char;
+												        styles ["caption", "error"]
+												    }
+
+												    Gtk.Box {
+												    	height-request: 64;
+												    }
+											    }
+											};
+
+										[overlay]
+										Gtk.Box {
+											valign: end;
+											halign: center;
+											styles ['toolbar']
+											orientation: vertical;
+
+											$StvpkSpinningButton download_button {
+										        halign: end;
+										        valign: center;
+										        styles ['suggested-action', 'pill']
+										        label: _('Download');
+										        tooltip-text: _('Requires internet connection');
+										        action-name: 'win.download';
+									        }
+										}
+									}
+								};
+						};
+				}
+
+				Adw.NavigationPage {
+					can-pop: false;
+					title: _('Download In Progress');
+					tag: 'progress';
+					child:
+						Adw.ToolbarView {
+							[top]
+							Adw.HeaderBar {
+								title-widget:
+									Adw.WindowTitle {
+										title: 'Boki';
+									};
+							}
+
+							content:
+								Gtk.Box {
+									orientation: vertical;
+									vexpand: true;
+
+									Adw.Clamp {
+										vexpand: true;
+										maximum-size: 300;
+
+										Gtk.Stack progress_page_status_stack {
+											transition-type: crossfade;
+
+											Gtk.StackPage {
+												name: 'running';
+												child:
+													Adw.StatusPage {
+														title: _('Downloading...');
+														description: _('This could take a while.');
+														child:
+															Gtk.Box {
+																orientation: vertical;
+																spacing: 32;
+
+																Gtk.ProgressBar running_bar {
+																	show-text: true;
+																	halign: center;
+																}
+
+																$StvpkSpinningButton {
+																	label: _('Cancel');
+																	halign: center;
+																	styles ['destructive-action', 'pill']
+
+																	action-name: 'message.choose';
+																	action-target: '("cancel-download","{stop_download_dialog}")';
+																}
+															};
+													};
+											}
+
+											Gtk.StackPage {
+												name: 'cancelled';
+												child:
+													Adw.StatusPage {
+														title: _('Cancelled');
+														child:
+															Gtk.Box {
+																orientation: vertical;
+																spacing: 32;
+
+																$StvpkSpinningButton {
+																	label: _('Return');
+																	halign: center;
+																	styles ['pill']
+
+																	action-name: 'win.return';
+																}
+															};
+													};
+											}
+
+											Gtk.StackPage {
+												name: 'finished';
+												child:
+													Adw.StatusPage {
+														title: _('Finished!');
+														child:
+															Gtk.Box {
+																orientation: vertical;
+																spacing: 32;
+
+																$StvpkSpinningButton {
+																	label: _('Return');
+																	halign: center;
+																	styles ['pill']
+
+																	action-name: 'win.return';
+																}
+															};
+													};
+											}
+										}
+
+									}
+								};
+						};
+				}
+			};
 	}
 }
