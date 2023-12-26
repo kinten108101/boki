@@ -494,7 +494,7 @@ export function Window(application, settings) {
 	    })()
 	    	.catch(error => {
 	    		if (error instanceof GLib.Error && error.matches(db_service_error_quark(), DbServiceErrorEnum.IdNotDecimal)) {
-	    			url_page.set_error(_('Could not identify a Workshop item with this URL. Make sure that the URL follows the format of \"https://steamcommunity.com/sharedfiles/filedetails/?id=XXXXXXXXX\".'));
+	    			url_page.set_error(_('Could not identify a Workshop item with this URL. Make sure that the URL follows the format of \"https://steamcommunity.com/sharedfiles/filedetails/?id=X\".'));
 	    		} else if (error instanceof GLib.Error
 	    			&& (
 	    				error.matches(Gio.resolver_error_quark(), Gio.ResolverError.NOT_FOUND)
