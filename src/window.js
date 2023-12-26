@@ -36,7 +36,7 @@ const ProgressPage = (builder, navigation_stack, toaster) => {
 	 * @type {{
 	 * (name: 'running-prepare', arg1: undefined): void;
 	 * (name: 'running-percent', fraction: number): void;
-	 * (name: 'finished', arg1: undefined): void;
+	 * (name: 'finished', arg1: Gio.File): void;
 	 * (name: 'cancelled', arg1: undefined): void;
 	 * (name: 'error', msg: string): void;
 	 * }}
@@ -58,6 +58,9 @@ const ProgressPage = (builder, navigation_stack, toaster) => {
 			navigation_stack.pop_to_tag('home');
 			toaster.add_toast(new Adw.Toast({
 				title: _('Finished downloading'),
+				button_label: _('Open in Explorer'),
+				action_name: 'file.explore',
+				action_target: GLib.Variant.new_tuple([GLib.Variant.new_string(/** @type {Gio.File} */(arg1).get_path() || '')]),
 			}));
 			break;
 		case 'cancelled':
@@ -561,10 +564,12 @@ export function Window(application, settings) {
 		    	progress_page.set_state('running-percent', val);
 		    }, 100);
 
-		    order.connect('completed', () => {
+		    order.connect('completed', (/** @type {typeof DownloadOrder.prototype} */ obj) => {
 		    	// @ts-expect-error
 	      	  	announcer.destroy();
-	      	  	progress_page.set_state('finished', undefined);
+	      	  	const parent = obj.saved_location.get_parent();
+	      	  	if (!parent) throw new Error;
+	      	  	progress_page.set_state('finished', parent);
 	      	  	console.debug('Download completed');
 		    });
 
