@@ -330,11 +330,11 @@ const UrlPage = (builder) => {
 };
 
 const Downloader = () => {
-	/** @type {DownloadOrder | null} */
+	/** @type {import('./services/download.js').DownloadOrder | null} */
 	let current_order = null;
 
 	return {
-		/** @type {DownloadOrder | null} */
+		/** @type {import('./services/download.js').DownloadOrder | null} */
 		current_order,
 	};
 };
