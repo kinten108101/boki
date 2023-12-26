@@ -198,22 +198,13 @@ const PreviewPage = (builder) => {
 		set_error('');
 	};
 
-	/**
-	 * @param {Gio.File} location
-	 */
-	const set_initial_location = (location) => {
-		saved_location_buffer.current = location;
-		set_location_dialog.set_initial_folder(location.get_parent());
-		set_location_dialog.set_initial_name(location.get_basename());
-	};
-
 	return {
 		present_item,
 		set_loading,
 		set_error,
 		resolve_error,
 		saved_location_buffer,
-		set_initial_location,
+		set_location_dialog,
 	};
 };
 
@@ -485,11 +476,21 @@ export function Window(application, settings) {
 	    		item['file_size']
 	    	);
 
+			preview_page.set_location_dialog.set_initial_name((() => {
+				const raw = item['filename'] || '';
+				if (raw === '') return '';
+				const name = Gio.File.new_for_path(raw).get_basename();
+				if (!name) return '';
+				return name;
+			})());
+
 	    	const default_dir_raw = settings.get_string('download-directory');
-	    	if (default_dir_raw === null) throw new Error;
-	    	const default_dir = Gio.File.new_for_path(expand_path(default_dir_raw));
-	    	const initial_location = default_dir.get_child(item['filename']);
-	    	preview_page.set_initial_location(initial_location)
+	    	if (default_dir_raw !== null && default_dir_raw !== '') {
+		    	const default_dir = Gio.File.new_for_path(expand_path(default_dir_raw));
+				preview_page.set_location_dialog.set_initial_folder(default_dir);
+		    	preview_page.saved_location_buffer.current = default_dir.get_child(item['filename']);
+	    	}
+
 	    	navigation_stack.push_by_tag('preview');
 	    })()
 	    	.catch(error => {
