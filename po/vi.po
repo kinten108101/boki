@@ -1,0 +1,176 @@
+# Copyright © 2023 Boki contributors
+# This file is distributed under the same license as the Boki package.
+#
+# Kinten Le <kinten108101@protonmail.com.com>, 2023.
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.kinten108101.Boki\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-12 23:13+0200\n"
+"PO-Revision-Date: 2023-03-23 11:54+0100\n"
+"Last-Translator: Kinten Le <kinten108101@protonmail.com.com>\n"
+"Language-Team: Vietnamese\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+msgid "Must specify a location to save."
+msgstr "Phải chọn địa điểm lưu về."
+
+msgid "Get file from Steam Workshop"
+msgstr "Lấy tập tin từ Steam Workshop"
+
+msgid "Development"
+msgstr "Phát triển"
+
+msgid "Download Directory"
+msgstr "Thư mục tải về"
+
+msgid "Requires internet connection"
+msgstr "Yêu cầu kết nối mạng"
+
+msgid "Return to \"Enter URL\""
+msgstr "Quay trở lại trang \"Nhập URL\""
+
+msgid "Home"
+msgstr "Trang chủ"
+
+msgid "Preview"
+msgstr "Xem trước"
+
+msgid "Browsing"
+msgstr "Duyệt"
+
+msgid "General"
+msgstr "Chung"
+
+msgid "Go back"
+msgstr "Lùi một trang"
+
+msgid "Go forth"
+msgstr "Tiến một trang"
+
+#: data/gtk/help-overlay.ui:XXX
+msgid "Quit"
+msgstr "Thoát"
+
+#: data/gtk/help-overlay.ui:XXX
+msgid "Toggle primary menu"
+msgstr "Đóng mở menu chính"
+
+#: data/ui/stop-download-window.ui:XXX
+msgid "Stop downloading?"
+msgstr "Ngừng tải?"
+
+#: data/ui/stop-download-window.ui:XXX
+msgid "You will lose all progress."
+msgstr "Mọi dữ liệu đã tải sẽ bị mất."
+
+#: data/ui/stop-download-window.ui:XXX
+msgid "Cancel"
+msgstr "Hủy"
+
+#: data/ui/stop-download-window.ui:XXX
+msgid "Stop"
+msgstr "Ngừng"
+
+#: data/ui/window.ui:XXX
+msgid "Click \"Enter URL...\" to proceed."
+msgstr "Nhấn nút \"Nhập URL...\" để bắt đầu."
+
+#: data/ui/window.ui:XXX
+msgid "URL"
+msgstr "Địa chỉ URL"
+
+#: data/ui/window.ui:XXX
+msgid "The file associated with this Workshop page will be validated then downloaded."
+msgstr "Chương trình sẽ truy ra tập tin cần tải từ trang Workshop này, xác minh tập tin, rồi tải tập tin về máy."
+
+#: data/ui/window.ui:XXX
+msgid "Main Menu"
+msgstr "Menu chính"
+
+#: data/ui/window.ui:XXX
+msgid "New Window"
+msgstr "Thêm cửa sổ"
+
+msgid "New window"
+msgstr "Thêm cửa sổ"
+
+msgid "Close window"
+msgstr "Đóng cửa sổ"
+
+#: data/ui/window.ui:XXX
+msgid "Preferences"
+msgstr "Cài đặt"
+
+#: data/ui/window.ui:XXX
+msgid "Keyboard Shortcuts"
+msgstr "Phím tắt"
+
+#: data/ui/window.ui:XXX
+msgid "About Boki"
+msgstr "Thông tin về Boki"
+
+#: data/ui/window.ui:XXX
+msgid "Enter _URL..."
+msgstr "Nhập URL..."
+
+#: data/ui/window.ui:XXX
+msgid "Enter URL"
+msgstr "Nhập URL"
+
+#: data/ui/window.ui:XXX
+msgid "Validate"
+msgstr "Xác minh"
+
+#: data/ui/window.ui:XXX
+msgid "File Details"
+msgstr "Thông tin"
+
+#: data/ui/window.ui:XXX
+msgid "Estimated Size"
+msgstr "Kích thước dự đoán"
+
+#: data/ui/window.ui:XXX
+msgid "Options"
+msgstr "Tùy chỉnh"
+
+#: data/ui/window.ui:XXX
+msgid "Location"
+msgstr "Vị tri"
+
+#: data/ui/window.ui:XXX
+msgid "The file will be saved under this path."
+msgstr "Tập tin sẽ được lưu vào vị trí này."
+
+#: data/ui/window.ui:XXX
+msgid "Download"
+msgstr "Tải"
+
+#: data/ui/window.ui:XXX
+msgid "Download In Progress"
+msgstr "Đang tải"
+
+#: src/utils/files.js:XXX
+msgid "fraction-symbol"
+msgstr ","
+
+#: src/window.js:418
+msgid "An error occurred"
+msgstr "Chương trình gặp lỗi"
+
+#: src/window.js:XXX
+msgid "Copied to clipboard"
+msgstr "Sao chép thành công"
+
+#: src/window.js:XXX
+msgid "Select Location"
+msgstr "Chọn vị trí"
+
+msgid "Report an Issue"
+msgstr "Báo lỗi"
+

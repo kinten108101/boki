@@ -3,6 +3,7 @@ project(
 	license: ['MIT'],
 )
 
+i18n = import('i18n')
 gnome = import('gnome')
 fs = import('fs')
 
@@ -14,6 +15,7 @@ blueprint_compiler = find_program('blueprint-compiler', version: '>=0.8.1', requ
 
 subdir('data')
 subdir('src')
+subdir('po')
 
 gnome.post_install(
 	glib_compile_schemas: true,
