@@ -1,5 +1,6 @@
 import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
+import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 
 const pick_dir_dialog = new Gtk.FileDialog();
@@ -31,6 +32,20 @@ imports.signals.addSignalMethods(output_signals);
  */
 export const useFile = (widget, builder, parent_window) => {
 	const action_group = new Gio.SimpleActionGroup();
+
+	const explore = new Gio.SimpleAction({
+		name: 'explore',
+		parameter_type: GLib.VariantType.new_tuple([GLib.VariantType.new('s')]),
+	});
+	explore.connect('activate', (_action, parameter) => {
+		if (!parameter) throw new Error;
+		const values = parameter.recursiveUnpack();
+		if (!Array.isArray(values))
+			throw new Error;
+
+		Gtk.show_uri(parent_window || null, `file://${values[0]}`, Gdk.CURRENT_TIME);
+	});
+	action_group.add_action(explore);
 
 	const save_file = new Gio.SimpleAction({
 		name: 'save-file',
