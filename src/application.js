@@ -12,6 +12,8 @@ import { new_from_appdata } from './about.js';
 export function Application() {
 	GLib.log_set_debug_enabled(globalThis.is_devel);
 
+	GLib.set_application_name('Boki');
+
 	const application = new Adw.Application({
 		application_id: 'com.github.kinten108101.Boki',
 	});
