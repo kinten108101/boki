@@ -18,7 +18,7 @@ This project uses Flatpak, an app container technology. Your Linux distro should
 Install Flatpak Builder, required to build Flatpak apps:
 
 ```sh
-flatpak install org.flatpak.Bulder
+flatpak install org.flatpak.Builder
 ```
 
 Build and install the app using the `scripts/flatpak-install.sh` script. You can inspect the file's content to see what's running.
