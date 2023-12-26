@@ -8,6 +8,20 @@
   <update_contact>kinten108101@protonmail.com</update_contact>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
+  <screenshots>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/kinten108101/boki/main/data/resources/preview-1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/kinten108101/boki/main/data/resources/preview-2.png</image>
+    </screenshot>
+    <screenshot>
+      <image>
+        https://raw.githubusercontent.com/kinten108101/boki/main/data/resources/preview-3.png</image>
+    </screenshot>
+  </screenshots>
   <summary translatable="yes">No summary</summary>
   <description translatable="yes"><p>No description</p></description>
   <url type="homepage">https://github.com/kinten108101/boki</url>
