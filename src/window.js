@@ -504,10 +504,12 @@ export function Window(application, settings) {
 	    			url_page.set_error(_('Could not connect to the internet. Make sure that internet access is available and allowed for this application.'));
 	    		} else if (error instanceof Error && error.message.includes('Expected type string for argument \'uri_string\'')) {
 	    			url_page.set_error(_('Could not detect an associated file for this Workshop item.'));
+	    		} else if (error instanceof GLib.Error && error.matches(GLib.uri_error_quark(), GLib.UriError.FAILED)) {
+	    			url_page.set_error(_('This Steam Workshop item has no associated file.'));
 	    		} else {
 	    			url_page.set_error(`${_('An error occurred')}: \"${error}\"`);
+	    			console.debug(error);
 	    		}
-	    		console.debug(error);
 	    		if (error instanceof GLib.Error) {
 	    			console.debug('domain:', GLib.quark_to_string(error.domain));
 	    			console.debug('code:', error.code);
