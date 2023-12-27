@@ -134,10 +134,15 @@ const PreviewPage = (builder) => {
 		}
 	};
 
+	/** @type {boolean | undefined} */
+	let prev_error_responded = undefined;
+
 	/**
 	 * @param {boolean} error_responded
 	 */
 	const _update_error_responded = (error_responded) => {
+		if (prev_error_responded === error_responded) return;
+	    prev_error_responded = error_responded;
 	    if (error_responded) {
 	      _download_button.sensitize();
 	    } else {
