@@ -6,6 +6,12 @@ import Gtk from 'gi://Gtk';
 const pick_dir_dialog = new Gtk.FileDialog();
 
 /**
+ * @note Main window is very small, a file dialog transient for main window will block
+ * everything, so we must avoid that.
+ */
+const TRANSIENT = false;
+
+/**
  * @template {string} V
  * @type {Map<V, Gio.File>}
  */
@@ -43,7 +49,7 @@ export const useFile = (widget, builder, parent_window) => {
 		if (!Array.isArray(values))
 			throw new Error;
 
-		Gtk.show_uri(parent_window || null, `file://${values[0]}`, Gdk.CURRENT_TIME);
+		Gtk.show_uri(TRANSIENT ? (parent_window || null) : null, `file://${values[0]}`, Gdk.CURRENT_TIME);
 	});
 	action_group.add_action(explore);
 
@@ -66,7 +72,7 @@ export const useFile = (widget, builder, parent_window) => {
 		if (!dialog) throw new Error;
 
         (/** @type {{ save: (window: Gtk.Window | null, cancellable: Gio.Cancellable | null) => Promise<Gio.File>; }} */ (/** @type {unknown} */ (dialog)))
-        	.save(parent_window || null, null)
+        	.save(TRANSIENT ? (parent_window || null) : null, null)
         	.then(
         		file => {
 					/** @type {V} */
@@ -95,7 +101,7 @@ export const useFile = (widget, builder, parent_window) => {
 			throw new Error;
 
         (/** @type {{ select_folder: (window: Gtk.Window | null, cancellable: Gio.Cancellable | null) => Promise<Gio.File>; }} */ (/** @type {unknown} */ (pick_dir_dialog)))
-        	.select_folder(parent_window || null, null)
+        	.select_folder(TRANSIENT ? (parent_window || null) : null, null)
         	.then(
         		file => {
         			/** @type {V} */
