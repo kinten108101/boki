@@ -490,9 +490,13 @@ export function Window(application, settings) {
 				return name;
 			})());
 
-	    	const default_dir_raw = settings.get_string('download-directory');
-	    	if (default_dir_raw !== null && default_dir_raw !== '') {
-		    	const default_dir = Gio.File.new_for_path(expand_path(default_dir_raw));
+	    	let default_dir_raw = settings.get_string('download-directory');
+	    	if (default_dir_raw === null || default_dir_raw === '') {
+	    		const default_dir = Gio.File.new_for_path(GLib.get_home_dir());
+	    		preview_page.set_location_dialog.set_initial_folder(default_dir);
+	    		preview_page.saved_location_buffer.current = null;
+	    	} else {
+	    		const default_dir = Gio.File.new_for_path(expand_path(default_dir_raw));
 				preview_page.set_location_dialog.set_initial_folder(default_dir);
 		    	preview_page.saved_location_buffer.current = default_dir.get_child(item['filename']);
 	    	}
