@@ -446,6 +446,9 @@ export function Window(application, settings) {
 		const tag = $obj.get_visible_page()?.get_tag();
 		if (tag === 'url') {
 			updateUrlBarContent().catch(logError);
+			url_page.resolve_error();
+		} else if (tag === 'preview') {
+			preview_page.resolve_error();
 		}
 	});
 
