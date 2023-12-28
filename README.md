@@ -1,20 +1,17 @@
-<div align="center">
-<img style="vertical-align: middle;" src="data/resources/app.svg" alt="Project's logo" width="120" height="120" align="center" />
-<br />
-<h1>Boki</h1>
-</div>
-<div align="center">
-</div>
-<br />
+<img style="vertical-align: middle;" src="data/resources/app.svg" width="120" height="120" align="left">
 
-Boki is a Steam Workshop downloader client for the GNOME desktop.
+# Boki
 
-The logo is inspired by an artwork of Tony Zenitium, find it [here](https://zenitium.artstation.com/projects/3dm1XE) and [here](https://www.artstation.com/artwork/3dm1XE) (the latter link is dead).
+Steam Workshop downloader client for GNOME.
+
+With Boki, you can download add-on/mod files from your favorite games on Steam.
+
+The logo is inspired by an artwork by Tony Zenitium (Source: [here](https://zenitium.artstation.com/projects/3dm1XE) and [here](https://www.artstation.com/artwork/3dm1XE)).
 
 <p>
-	<img src="data/resources/preview-1.png" width="30%">
-	<img src="data/resources/preview-2.png" width="30%">
-	<img src="data/resources/preview-3.png" width="30%">
+	<img src="data/resources/preview-1.png" width="32%">
+	<img src="data/resources/preview-2.png" width="32%">
+	<img src="data/resources/preview-3.png" width="32%">
 </p>
 
 
