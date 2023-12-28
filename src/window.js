@@ -560,31 +560,31 @@ export function Window(application, settings) {
 
     	order.saved_location = saved_location;
 
+      	preview_page.set_loading(true);
+    	preview_page.resolve_error();
+
+    	progress_page.set_state('running-prepare', undefined);
+
+    	const announcer = setInterval(() => {
+    		const val = order.get_percentage();
+	    	console.debug('Progress:', val);
+	    	progress_page.set_state('running-percent', val);
+	    }, 100);
+
+	    order.connect('completed', (/** @type {typeof DownloadOrder.prototype} */ obj) => {
+	    	// @ts-expect-error
+      	  	announcer.destroy();
+      	  	const parent = obj.saved_location.get_parent();
+      	  	if (!parent) throw new Error;
+      	  	progress_page.set_state('finished', parent);
+      	  	console.debug('Download completed');
+	    });
+
 		const on_exit = () => {
 	    	preview_page.set_loading(false);
 	    };
 
 	    (async () => {
-	      	preview_page.set_loading(true);
-	    	preview_page.resolve_error();
-
-	    	progress_page.set_state('running-prepare', undefined);
-
-	    	const announcer = setInterval(() => {
-	    		const val = order.get_percentage();
-		    	console.debug('Progress:', val);
-		    	progress_page.set_state('running-percent', val);
-		    }, 100);
-
-		    order.connect('completed', (/** @type {typeof DownloadOrder.prototype} */ obj) => {
-		    	// @ts-expect-error
-	      	  	announcer.destroy();
-	      	  	const parent = obj.saved_location.get_parent();
-	      	  	if (!parent) throw new Error;
-	      	  	progress_page.set_state('finished', parent);
-	      	  	console.debug('Download completed');
-		    });
-
 		    if (order.is_stopped()) {
 		    	await order.reset();
 		    }
