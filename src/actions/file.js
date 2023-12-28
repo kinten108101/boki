@@ -3,13 +3,15 @@ import Gio from 'gi://Gio';
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 
-const pick_dir_dialog = new Gtk.FileDialog();
+import { get_object_from_formatting_string } from '../utils/builder.js';
+
+const default_dialog = new Gtk.FileDialog();
 
 /**
  * @note Main window is very small, a file dialog transient for main window will block
  * everything, so we must avoid that.
  */
-const TRANSIENT = false;
+const TRANSIENT = true;
 
 /**
  * @template {string} V
@@ -63,13 +65,8 @@ export const useFile = (widget, builder, parent_window) => {
 		if (!Array.isArray(values))
 			throw new Error;
 
-		/** @type {string} */
-		const filters_query = values[1];
-		if (filters_query[0] != '{' || filters_query[filters_query.length - 1] != '}') throw new Error;
-		const obj_name = filters_query.substring(1, filters_query.length - 1);
-
-		const dialog = /** @type {Gtk.FileDialog | null} */ (builder.get_object(obj_name));
-		if (!dialog) throw new Error;
+		let dialog = /** @type {Gtk.FileDialog | null} */ (get_object_from_formatting_string(values[1], builder));
+		if (!dialog) dialog = default_dialog;
 
         (/** @type {{ save: (window: Gtk.Window | null, cancellable: Gio.Cancellable | null) => Promise<Gio.File>; }} */ (/** @type {unknown} */ (dialog)))
         	.save(TRANSIENT ? (parent_window || null) : null, null)
@@ -92,7 +89,7 @@ export const useFile = (widget, builder, parent_window) => {
 
 	const pick_dir = new Gio.SimpleAction({
 		name: 'select-folder',
-		parameter_type: GLib.VariantType.new_tuple([GLib.VariantType.new('s')]),
+		parameter_type: GLib.VariantType.new_tuple([GLib.VariantType.new('s'), GLib.VariantType.new('s')]),
 	});
 	pick_dir.connect('activate', (_action, parameter) => {
 		if (!parameter) throw new Error;
@@ -100,7 +97,10 @@ export const useFile = (widget, builder, parent_window) => {
 		if (!Array.isArray(values))
 			throw new Error;
 
-        (/** @type {{ select_folder: (window: Gtk.Window | null, cancellable: Gio.Cancellable | null) => Promise<Gio.File>; }} */ (/** @type {unknown} */ (pick_dir_dialog)))
+		let dialog = /** @type {Gtk.FileDialog | null} */ (get_object_from_formatting_string(values[1], builder));
+		if (!dialog) dialog = default_dialog;
+
+        (/** @type {{ select_folder: (window: Gtk.Window | null, cancellable: Gio.Cancellable | null) => Promise<Gio.File>; }} */ (/** @type {unknown} */ (dialog)))
         	.select_folder(TRANSIENT ? (parent_window || null) : null, null)
         	.then(
         		file => {

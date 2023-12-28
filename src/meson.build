@@ -6,6 +6,7 @@ script = [
 	'services/download.js',
 	'services/steamworks.js',
 	'services/toaster.js',
+	'utils/builder.js',
 	'utils/error.js',
 	'utils/files.js',
 	'utils/gtk.js',
