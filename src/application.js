@@ -7,7 +7,7 @@ import { gettext as _ } from "gettext";
 import { Window } from './window.js';
 import { useFile } from './actions/file.js';
 import { retract_path } from './utils/files.js';
-import { new_from_appdata } from './about.js';
+import { AboutWindow } from './widgets/about.js';
 
 const get_xdg_download_dir = async () => {
 	const proc = Gio.Subprocess.new(['xdg-user-dir', 'DOWNLOAD'], Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE);
@@ -120,7 +120,7 @@ export function Application() {
 		name: 'show-about',
 	});
 	show_about.connect('activate', () => {
-		const window = new_from_appdata(`/com/github/kinten108101/Boki/com.github.kinten108101.Boki.metainfo.xml`, 'beta');
+		const window = AboutWindow.new_from_appdata(`/com/github/kinten108101/Boki/com.github.kinten108101.Boki.metainfo.xml`, 'beta');
 
 		const parent_window = application.get_active_window();
 		if (parent_window) {
