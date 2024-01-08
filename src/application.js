@@ -122,6 +122,8 @@ export function Application() {
 	show_about.connect('activate', () => {
 		const window = AboutWindow.new_from_appdata(`/com/github/kinten108101/Boki/com.github.kinten108101.Boki.metainfo.xml`, 'beta');
 
+		window.set_debug_info(`flatpak=${globalThis.is_built_for_flatpak}\n`);
+
 		const parent_window = application.get_active_window();
 		if (parent_window) {
 			window.set_transient_for(parent_window);
