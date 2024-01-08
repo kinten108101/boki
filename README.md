@@ -45,3 +45,6 @@ yarn install
 
 These packages are type declarations for the GTK and Adwaita libraries. Now you should have working type linting in your IDE.
 
+## About
+
+"Boki" derives from the names of two fictional characters "Bocchi" and "Kita" from the popular Japanese comic series/animated show "Bocchi the Rock!".
