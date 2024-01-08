@@ -11,7 +11,7 @@ import Adw from 'gi://Adw';
  *
  * @returns A controller object that resembles a ToastOverlay except for the GObject parts.
  */
-export const useToaster = (
+export const DynamicToaster = (
 	get_current_child_func,
 ) => {
 	/**

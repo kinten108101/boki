@@ -11,7 +11,7 @@ import { Steamworks } from './services/steamworks.js';
 import { MakeCompatPango, MakeTitleCompat } from './utils/markup.js';
 import { DownloadOrder } from './services/download.js';
 import { useFile } from './actions/file.js';
-import { useToaster } from './services/toaster.js';
+import { DynamicToaster } from './services/toaster.js';
 import { useCopyText } from './actions/copy-text.js';
 import { bytes2humanreadable, expand_path, retract_path } from './utils/files.js';
 import { DbServiceErrorEnum, db_service_error_quark } from './utils/error.js';
@@ -380,7 +380,7 @@ export function Window(application, settings) {
 	const navigation_stack = /** @type {Adw.NavigationView | null} */ (builder.get_object('navigation_stack'));
 	if (!navigation_stack) throw new Error;
 
-	const toaster = useToaster(() => {
+	const toaster = DynamicToaster(() => {
 		const child = navigation_stack.get_visible_page()?.get_child();
 		if (!child) throw new Error;
 		return child;
