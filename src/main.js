@@ -68,6 +68,9 @@ Gio._promisify(Gio.OutputStream.prototype, 'write_bytes_async', 'write_bytes_fin
 Gio._promisify(Gio.OutputStream.prototype, 'writev_all_async', 'writev_all_finish');
 Gio._promisify(Gio.OutputStream.prototype, 'writev_async', 'writev_finish');
 
+// Force run these modules to register gtypes
+import './widgets/spinning-button.js';
+
 import { Application } from "./application.js";
 
 export function main(/** @type {string[] | null} */ argv) {

@@ -7,9 +7,6 @@ import Adw from 'gi://Adw';
 import Soup from 'gi://Soup';
 import { gettext as _ } from "gettext";
 
-// Force run these modules to register gtypes
-import './widgets/spinning-button.js';
-
 import { Steamworks } from './services/steamworks.js';
 import { MakeCompatPango, MakeTitleCompat } from './utils/markup.js';
 import { DownloadOrder } from './services/download.js';
