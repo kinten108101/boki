@@ -9,7 +9,9 @@ import Adw from 'gi://Adw';
  *
  * @param {() => Gtk.Widget} get_current_child_func A handler to get the consumer widget from which the search for nearest begins.
  *
- * @returns A controller object that resembles a ToastOverlay except for the GObject parts.
+ * @returns {Adw.ToastOverlay} A controller object that resembles a ToastOverlay except for the GObject parts.
+ *
+ * @experimental
  */
 export const DynamicToaster = (
 	get_current_child_func,
@@ -29,6 +31,7 @@ export const DynamicToaster = (
 		(/** @type {Adw.ToastOverlay} */(overlay)).add_toast(toast);
 	};
 
+	// @ts-expect-error
 	return {
 		add_toast,
 	};
