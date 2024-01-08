@@ -8,13 +8,13 @@ import { gettext as _ } from "gettext";
 
 import { TOAST_TIMEOUT_SHORT } from '../utils/gtk.js';
 import { get_value_from_formatting_string } from '../utils/builder.js';
+import { toaster } from '../utils/toaster.js';
 
 /**
  * @param {Gtk.Widget} provider
  * @param {Gtk.Builder=} builder
- * @param {Adw.ToastOverlay=} toaster
  */
-export function useCopyText(provider, builder, toaster) {
+export function useCopyText(provider, builder) {
 	const action_group = new Gio.SimpleActionGroup();
 
 	const action = new Gio.SimpleAction({
@@ -36,7 +36,7 @@ export function useCopyText(provider, builder, toaster) {
       	val.init(GObject.TYPE_STRING);
       	val.set_string(str);
       	display.get_clipboard().set_content(Gdk.ContentProvider.new_for_value(val));
-      	toaster?.add_toast(new Adw.Toast({
+      	toaster(provider)?.add_toast(new Adw.Toast({
       		title: _('Copied to clipboard'),
       		timeout: TOAST_TIMEOUT_SHORT,
       	}));

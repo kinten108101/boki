@@ -12,17 +12,18 @@ import { MakeCompatPango, MakeTitleCompat } from './utils/markup.js';
 import { DownloadOrder } from './services/download.js';
 import { useFile } from './actions/file.js';
 import { DynamicToaster } from './services/toaster.js';
+import { useToasterProvider, toaster } from './utils/toaster.js';
 import { useCopyText } from './actions/copy-text.js';
 import { bytes2humanreadable, expand_path, retract_path } from './utils/files.js';
 import { DbServiceErrorEnum, db_service_error_quark } from './utils/error.js';
 import { useMessage } from './actions/message.js';
 
 /**
+ * @param {Gtk.Widget} window
  * @param {Gtk.Builder} builder
  * @param {Adw.NavigationView} navigation_stack
- * @param {Adw.ToastOverlay} toaster
  */
-const ProgressPage = (builder, navigation_stack, toaster) => {
+const ProgressPage = (window, builder, navigation_stack) => {
 	const running_bar = /** @type {Gtk.ProgressBar | null} */ (builder.get_object('running_bar'));
 	if (!running_bar) throw new Error;
 
@@ -53,7 +54,7 @@ const ProgressPage = (builder, navigation_stack, toaster) => {
 			break;
 		case 'finished':
 			navigation_stack.pop_to_tag('home');
-			toaster.add_toast(new Adw.Toast({
+			toaster(window)?.add_toast(new Adw.Toast({
 				title: _('Finished downloading'),
 				button_label: _('Open in Explorer'),
 				action_name: 'file.explore',
@@ -62,14 +63,14 @@ const ProgressPage = (builder, navigation_stack, toaster) => {
 			break;
 		case 'cancelled':
 			navigation_stack.pop();
-			toaster.add_toast(new Adw.Toast({
-				title: _('Cancelled downloading'),
+			toaster(window)?.add_toast(new Adw.Toast({
+				title: _('Download cancelled'),
 			}));
 			break;
 		case 'error':
 			console.debug('progress-page', 'error:', arg1);
 			navigation_stack.pop();
-			toaster.add_toast(new Adw.Toast({
+			toaster(window)?.add_toast(new Adw.Toast({
 				title: _('An error occurred'),
 			}));
 			break;
@@ -380,11 +381,11 @@ export function Window(application, settings) {
 	const navigation_stack = /** @type {Adw.NavigationView | null} */ (builder.get_object('navigation_stack'));
 	if (!navigation_stack) throw new Error;
 
-	const toaster = DynamicToaster(() => {
+	useToasterProvider(window, DynamicToaster(() => {
 		const child = navigation_stack.get_visible_page()?.get_child();
 		if (!child) throw new Error;
 		return child;
-	});
+	}));
 
 	// @ts-expect-error
 	window.builder = builder;
@@ -393,9 +394,9 @@ export function Window(application, settings) {
 
 	const preview_page = PreviewPage(builder);
 
-	const progress_page = ProgressPage(builder, navigation_stack, /** @type {any} */ (toaster));
+	const progress_page = ProgressPage(window, builder, navigation_stack);
 
-	useCopyText(window, builder, /** @type {any} */(toaster));
+	useCopyText(window, builder);
 
 	const { output_signals: file_pick_signals } = useFile(window, builder, window);
 
