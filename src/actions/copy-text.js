@@ -27,6 +27,9 @@ export function useCopyText(provider, builder) {
 		if (!Array.isArray(values))
 			throw new Error;
 
+		if (!builder)
+			throw new Error('copy-text.copy-text with raw string value is not yet supported');
+
 		const str = /** @type {string | null} */(get_value_from_formatting_string(values[0], builder));
 		if (str === null) throw new Error;
 
