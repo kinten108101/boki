@@ -11,7 +11,7 @@ const default_dialog = new Gtk.FileDialog();
  * @note Main window is very small, a file dialog transient for main window will block
  * everything, so we must avoid that.
  */
-const TRANSIENT = true;
+const TRANSIENT = false;
 
 /**
  * @template {string} V
