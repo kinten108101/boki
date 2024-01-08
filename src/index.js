@@ -13,6 +13,8 @@ imports.package.init({
 
 let buildtype = '@BUILD_TYPE@';
 globalThis.is_devel = (buildtype === 'debug');
+let built_for_flatpak = '@BUILD_FOR_FLATPAK@';
+globalThis.is_built_for_flatpak = (built_for_flatpak === 'True');
 
 setConsoleLogDomain('boki');
 
