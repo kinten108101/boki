@@ -12,6 +12,7 @@ script = [
 	'utils/gtk.js',
 	'utils/markup.js',
 	'utils/string.js',
+	'utils/toaster.js',
 	'widgets/about.js',
 	'widgets/spinning-button.js',
 	'application.js',
