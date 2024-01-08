@@ -1,0 +1,1 @@
+option('built_for_flatpak', type: 'boolean', value: false)

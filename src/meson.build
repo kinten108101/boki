@@ -54,6 +54,7 @@ exec = configure_file(
 		'PREFIX': get_option('prefix'),
 		'LIBDIR': get_option('prefix') / get_option('libdir'),
 		'BUILD_TYPE': get_option('buildtype'),
+		'BUILD_FOR_FLATPAK': get_option('built_for_flatpak'),
 	},
 )
 

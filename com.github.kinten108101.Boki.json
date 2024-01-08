@@ -31,6 +31,7 @@
       "buildsystem": "meson",
       "config-opts": [
       	"-Dbuildtype=release"
+      	"-Dbuilt_for_flatpak=true"
       ],
       "sources": [
         {
