@@ -3,7 +3,7 @@ import Gio from 'gi://Gio';
 import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 
-import { get_object_from_formatting_string } from '../lib/builder-fmtstr.js';
+import { get_object_from_formatting_string } from './builder-fmtstr.js';
 
 const default_dialog = new Gtk.FileDialog();
 
