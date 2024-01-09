@@ -49,12 +49,16 @@ quit.connect('activate', () => {
 application.add_action(quit);
 application.set_accels_for_action('app.quit', ['<Primary>q']);
 
+const on_new_window = () => {
+	const mainWindow = Window(application, settings);
+	mainWindow.present();
+};
+
 const new_window = new Gio.SimpleAction({
 	name: 'new-window',
 });
 new_window.connect('activate', () => {
-	const mainWindow = Window(application, settings);
-	mainWindow.present();
+	on_new_window();
 });
 application.add_action(new_window);
 application.set_accels_for_action('app.new-window', ['<Primary>n']);
@@ -153,6 +157,5 @@ if (globalThis.is_devel) {
 }
 
 application.connect('activate', () => {
-	const mainWindow = Window(application, settings);
-	mainWindow.present();
+	on_new_window();
 });
