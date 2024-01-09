@@ -638,5 +638,5 @@ export function Window(application, settings) {
 	});
 	window.add_action(download_return);
 
-	return window;
+	return { window, navigation_stack };
 }

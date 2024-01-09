@@ -23,11 +23,15 @@ Adw.MessageDialog stop_download_dialog {
 }
 
 menu primary_menu {
-  section {
-    item (_("Preferences"), "app.show-preferences")
-    item (_("Keyboard Shortcuts"), "win.show-help-overlay")
-    item (_("About Boki"), "app.show-about")
-  }
+	section {
+		item (_("History"), "app.show-history")
+	}
+
+	section {
+		item (_("Preferences"), "app.show-preferences")
+		item (_("Keyboard Shortcuts"), "win.show-help-overlay")
+		item (_("About Boki"), "app.show-about")
+	}
 }
 
 Adw.ApplicationWindow window {
@@ -430,6 +434,78 @@ Adw.ApplicationWindow window {
 											}
 										}
 
+									}
+								};
+						};
+				}
+
+				Adw.NavigationPage {
+					title: _('History');
+					tag: 'history';
+					child:
+						Adw.ToolbarView {
+							[top]
+							Adw.HeaderBar {
+								title-widget:
+									Adw.WindowTitle {
+										title: 'Boki';
+									};
+
+								[start]
+								Gtk.Button {
+									icon-name: 'larger-brush-symbolic';
+									styles ['flat']
+									tooltip-text: _('Clear History');
+								}
+
+								[end]
+								Gtk.MenuButton {
+									icon-name: 'open-menu-symbolic';
+									menu-model: primary_menu;
+									primary: true;
+									tooltip-text: _('Main Menu');
+								}
+							}
+
+							content:
+								Gtk.Box {
+									orientation: vertical;
+
+									Gtk.SearchEntry {
+										placeholder-text: _('Search');
+										margin-top: 6; // accounted headerbar's padding
+										margin-bottom: 12;
+										margin-start: 12;
+										margin-end: 12;
+									}
+
+									Gtk.Separator {}
+
+									Gtk.ScrolledWindow {
+										styles ['view']
+										vexpand: true;
+
+										Adw.Clamp {
+											Gtk.ListBox {
+												margin-top: 12;
+												margin-bottom: 12;
+												margin-start: 12;
+												margin-end: 12;
+
+												valign: start;
+												selection-mode: none;
+
+												styles ['boxed-list']
+
+												Adw.ActionRow {
+													title: 'Add-on 1';
+												}
+
+												Adw.ActionRow {
+													title: 'Add-on 2';
+												}
+											}
+										}
 									}
 								};
 						};
