@@ -50,9 +50,13 @@ quit.connect('activate', () => {
 application.add_action(quit);
 application.set_accels_for_action('app.quit', ['<Primary>q']);
 
+/** @type {WeakMap<Gtk.Window, Adw.NavigationView>} */
+const navstack_map = new WeakMap;
+
 const on_new_window = () => {
-	const mainWindow = Window(application, settings);
-	mainWindow.present();
+	const { window, navigation_stack } = Window(application, settings);
+	navstack_map.set(window, navigation_stack);
+	window.present();
 };
 
 const new_window = new Gio.SimpleAction({
@@ -63,6 +67,23 @@ new_window.connect('activate', () => {
 });
 application.add_action(new_window);
 application.set_accels_for_action('app.new-window', ['<Primary>n']);
+
+const show_hist = new Gio.SimpleAction({
+	name: 'show-history',
+});
+show_hist.connect('activate', () => {
+	const parent_window = application.get_active_window();
+	if (!parent_window)
+		throw new Error;
+
+	const navigation_stack = navstack_map.get(parent_window);
+	if (!navigation_stack)
+		throw new Error;
+
+	navigation_stack.push_by_tag('history');
+});
+application.add_action(show_hist);
+application.set_accels_for_action('app.show-history', ['<Primary>h']);
 
 const show_pref = new Gio.SimpleAction({
 	name: 'show-preferences'
