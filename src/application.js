@@ -4,8 +4,9 @@ import Gtk from 'gi://Gtk';
 import Adw from 'gi://Adw';
 import { gettext as _ } from "gettext";
 
+import { useFile } from './lib/file.js';
+
 import { Window } from './window.js';
-import { useFile } from './actions/file.js';
 import { retract_path } from './utils/files.js';
 import { AboutWindow } from './widgets/about.js';
 

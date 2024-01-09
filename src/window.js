@@ -7,16 +7,17 @@ import Adw from 'gi://Adw';
 import Soup from 'gi://Soup';
 import { gettext as _ } from "gettext";
 
+import { useFile } from './lib/file.js';
+import { DynamicToaster } from './lib/dynamic-toaster.js';
+import { useCopyText } from './lib/copy-text.js';
+import { useMessage } from './lib/message.js';
+import { useToasterProvider, toaster } from './lib/toaster-provider.js';
+
 import { Steamworks } from './services/steamworks.js';
 import { MakeCompatPango, MakeTitleCompat } from './utils/markup.js';
 import { DownloadOrder } from './services/download.js';
-import { useFile } from './actions/file.js';
-import { DynamicToaster } from './services/toaster.js';
-import { useToasterProvider, toaster } from './lib/toaster-provider.js';
-import { useCopyText } from './actions/copy-text.js';
 import { bytes2humanreadable, expand_path, retract_path } from './utils/files.js';
 import { DbServiceErrorEnum, db_service_error_quark } from './utils/error.js';
-import { useMessage } from './actions/message.js';
 
 /**
  * @param {Gtk.Widget} window

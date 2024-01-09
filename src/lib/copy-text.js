@@ -6,9 +6,9 @@ import Gtk from 'gi://Gtk';
 import Adw from 'gi://Adw';
 import { gettext as _ } from "gettext";
 
-import { TOAST_TIMEOUT_SHORT } from '../utils/gtk.js';
-import { get_value_from_formatting_string } from '../lib/builder-fmtstr.js';
-import { toaster } from '../lib/toaster-provider.js';
+import { TOAST_TIMEOUT_SHORT } from './gtk.js';
+import { get_value_from_formatting_string } from './builder-fmtstr.js';
+import { toaster } from './toaster-provider.js';
 
 /**
  * @param {Gtk.Widget} provider
