@@ -7,8 +7,8 @@ import Adw from 'gi://Adw';
 import { gettext as _ } from "gettext";
 
 import { TOAST_TIMEOUT_SHORT } from '../utils/gtk.js';
-import { get_value_from_formatting_string } from '../utils/builder.js';
-import { toaster } from '../utils/toaster.js';
+import { get_value_from_formatting_string } from '../lib/builder-fmtstr.js';
+import { toaster } from '../lib/toaster-provider.js';
 
 /**
  * @param {Gtk.Widget} provider

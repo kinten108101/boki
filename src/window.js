@@ -12,7 +12,7 @@ import { MakeCompatPango, MakeTitleCompat } from './utils/markup.js';
 import { DownloadOrder } from './services/download.js';
 import { useFile } from './actions/file.js';
 import { DynamicToaster } from './services/toaster.js';
-import { useToasterProvider, toaster } from './utils/toaster.js';
+import { useToasterProvider, toaster } from './lib/toaster-provider.js';
 import { useCopyText } from './actions/copy-text.js';
 import { bytes2humanreadable, expand_path, retract_path } from './utils/files.js';
 import { DbServiceErrorEnum, db_service_error_quark } from './utils/error.js';
