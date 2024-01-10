@@ -33,7 +33,14 @@ const g_list_box_bind_model =
 		list_box.bind_model(model, widget_create_func);
 		return () => {};
 	}
+
+	// NOTE(kinten): It's good practice to remove any existing rows.
+	// Also, in our app, there are placeholder rows in the list
 	list_box.remove_all();
+	Array(model.model.length).fill(0).forEach((_, i) => {
+		const item = model.model[i];
+		list_box.append(widget_create_func(item));
+	});
 
 	const using_items_changed = model.signals.connect('items-changed',
 		/**
