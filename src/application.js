@@ -11,7 +11,8 @@ import { retract_path } from './utils/files.js';
 import { AboutWindow } from './widgets/about.js';
 import { Database } from './services/database.js';
 import { History } from './services/history.js';
-import { registerOwnerResolver } from './lib/toaster-provider.js';
+import { registerOwnerResolver, toaster } from './lib/toaster-provider.js';
+import { TOAST_TIMEOUT_SHORT } from './lib/gtk.js';
 
 const get_xdg_download_dir = async () => {
 	const proc = Gio.Subprocess.new(['xdg-user-dir', 'DOWNLOAD'], Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE);
@@ -60,7 +61,14 @@ const clear_history = new Gio.SimpleAction({
 	name: 'clear-history',
 });
 clear_history.connect('activate', () => {
-	history.removeAll().catch(logError);
+	history.removeAll()
+		.then(() => {
+			toaster()?.add_toast(new Adw.Toast({
+				title: _('Cleared download history'),
+				timeout: TOAST_TIMEOUT_SHORT,
+			}));
+		})
+		.catch(logError);
 });
 application.add_action(clear_history);
 
