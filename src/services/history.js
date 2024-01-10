@@ -191,9 +191,9 @@ export const History = (database) => {
 			 *  & Map<any, any>}
 			 **/
 			(new Map(/** @type {any} */(
-				dict_entries.length > 0 ? sequence(dict_entries.length).map(x => {
+				sequence(dict_entries.length).map(x => {
 					const entry = dict_entries[x];
-					if (entry === undefined) return ['', null];
+					if (entry === undefined) return null;
 					const {key, value} = entry;
 					switch (key) {
 					case 'uuid':
@@ -217,8 +217,8 @@ export const History = (database) => {
 						return [key, url];
 					}
 					console.debug('Bad prop:', key);
-					return ['', null];
-				}) : undefined
+					return null;
+				}).filter(x => x !== null)
 			)))
 		).map(dict => {
 			const uuid = dict.get('uuid');
