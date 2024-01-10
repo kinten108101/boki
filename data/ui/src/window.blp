@@ -493,7 +493,9 @@ Adw.ApplicationWindow window {
 
 									Gtk.Separator {}
 
-									Gtk.Stack {
+									Gtk.Stack history_content_stack {
+										transition-type: crossfade;
+
 										Gtk.StackPage {
 											name: 'default';
 											child:

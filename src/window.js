@@ -55,6 +55,14 @@ const g_list_box_bind_model =
 });
 
 /**
+ * @param {() => void} cb
+ */
+const sync_create = (cb) => {
+	cb();
+	return cb;
+};
+
+/**
  * @param {Gtk.Builder} builder
  * @param {Readonly<typeof HistoryItem.prototype[]>} history_model
  * @param {ListModelSignalMethods} signals
@@ -71,6 +79,17 @@ const HistoryPage = (builder, history_model, signals) => {
 		row.set_subtitle(item.steam_url.to_string());
 		return row;
 	});
+
+	const history_content_stack = /** @type {Gtk.Stack | null} */ (builder.get_object('history_content_stack'));
+	if (!history_content_stack) throw new Error;
+
+	signals.connect('items-changed', sync_create(() => {
+		if (history_model.length > 0) {
+			history_content_stack.set_visible_child_name('default');
+		} else {
+			history_content_stack.set_visible_child_name('empty');
+		}
+	}));
 
 	return {};
 };
