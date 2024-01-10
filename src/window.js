@@ -76,11 +76,10 @@ const HistoryPage = (builder, history_model, signals) => {
 };
 
 /**
- * @param {Gtk.Widget} window
  * @param {Gtk.Builder} builder
  * @param {Adw.NavigationView} navigation_stack
  */
-const ProgressPage = (window, builder, navigation_stack) => {
+const ProgressPage = (builder, navigation_stack) => {
 	const running_bar = /** @type {Gtk.ProgressBar | null} */ (builder.get_object('running_bar'));
 	if (!running_bar) throw new Error;
 
@@ -111,7 +110,7 @@ const ProgressPage = (window, builder, navigation_stack) => {
 			break;
 		case 'finished':
 			navigation_stack.pop_to_tag('home');
-			toaster(window)?.add_toast(new Adw.Toast({
+			toaster()?.add_toast(new Adw.Toast({
 				title: _('Finished downloading'),
 				button_label: _('Open in Explorer'),
 				action_name: 'file.explore',
@@ -120,14 +119,14 @@ const ProgressPage = (window, builder, navigation_stack) => {
 			break;
 		case 'cancelled':
 			navigation_stack.pop();
-			toaster(window)?.add_toast(new Adw.Toast({
+			toaster()?.add_toast(new Adw.Toast({
 				title: _('Download cancelled'),
 			}));
 			break;
 		case 'error':
 			console.debug('progress-page', 'error:', arg1);
 			navigation_stack.pop();
-			toaster(window)?.add_toast(new Adw.Toast({
+			toaster()?.add_toast(new Adw.Toast({
 				title: _('An error occurred'),
 			}));
 			break;
@@ -447,13 +446,13 @@ export function Window(application, settings) {
 	// @ts-expect-error
 	window.builder = builder;
 
-	const _history_page = HistoryPage(builder, history.items, history.signals);
+	HistoryPage(builder, history.items, history.signals);
 
 	const url_page = UrlPage(builder);
 
 	const preview_page = PreviewPage(builder);
 
-	const progress_page = ProgressPage(window, builder, navigation_stack);
+	const progress_page = ProgressPage(builder, navigation_stack);
 
 	useCopyText(window, builder);
 

@@ -13,9 +13,20 @@ export const useToasterProvider = (owner, toaster) => {
 };
 
 /**
- * @param {Gtk.Widget} owner
+ * @type {(() => (Gtk.Widget | null)) | null}
  */
-export const toaster = owner => {
+let _resolver = null;
+
+/**
+ * @param {() => (Gtk.Widget | null)} resolver
+ */
+export const registerOwnerResolver = (resolver) => {
+	_resolver = resolver;
+}
+
+export const toaster = () => {
+	const owner = _resolver?.() || null;
+	if (owner === null) return undefined;
 	const provider = toasters.get(owner);
 	return provider;
 };

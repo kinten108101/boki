@@ -39,7 +39,7 @@ export function useCopyText(provider, builder) {
       	val.init(GObject.TYPE_STRING);
       	val.set_string(str);
       	display.get_clipboard().set_content(Gdk.ContentProvider.new_for_value(val));
-      	toaster(provider)?.add_toast(new Adw.Toast({
+      	toaster()?.add_toast(new Adw.Toast({
       		title: _('Copied to clipboard'),
       		timeout: TOAST_TIMEOUT_SHORT,
       	}));

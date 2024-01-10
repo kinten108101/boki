@@ -11,6 +11,7 @@ import { retract_path } from './utils/files.js';
 import { AboutWindow } from './widgets/about.js';
 import { Database } from './services/database.js';
 import { History } from './services/history.js';
+import { registerOwnerResolver } from './lib/toaster-provider.js';
 
 const get_xdg_download_dir = async () => {
 	const proc = Gio.Subprocess.new(['xdg-user-dir', 'DOWNLOAD'], Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE);
@@ -39,6 +40,21 @@ export const history = History(database);
 
 database.start();
 history.start();
+
+/** @type {Gtk.Window | null} */
+let _prev_active_window = null;
+
+registerOwnerResolver(() => {
+	const window = application.get_active_window();
+	if (window !== null) {
+		_prev_active_window = window;
+		return window;
+	}
+	if (_prev_active_window !== null) {
+		return _prev_active_window;
+	}
+	return null;
+});
 
 const clear_history = new Gio.SimpleAction({
 	name: 'clear-history',
