@@ -1,3 +1,2 @@
 #!/usr/bin/env sh
-FILENAME=$1
-blueprint-compiler compile --output "data/ui/${FILENAME}.ui" "data/ui/src/${FILENAME}.blp"
+blueprint-compiler batch-compile data/ui data/ui/src data/ui/src/history-row.blp data/ui/src/preferences.blp data/ui/src/window.blp

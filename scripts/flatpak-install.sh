@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+sh scripts/ui-compile.sh && \
+
 # EXPLANATION
 # - `flatpak run org.flatpak.Builder`: The Flatpak Builder program.
 # - `--force-clean`: Force delete build folder (`build-flatpak`) before building. Otherwise you'll have to delete it manually between builds.
@@ -10,4 +12,4 @@
 # - `build-flatpak`: Name of the output build folder. This is hardcoded in .gitignore, you should not change this.
 # - `com.github.kinten108101.Boki.json`: Path to the input manifest file of this app for Flatpak Builder
 
-flatpak run org.flatpak.Builder --force-clean --delete-build-dirs --disable-updates --user --install build-flatpak com.github.kinten108101.Boki.json
+flatpak run org.flatpak.Builder --force-clean --delete-build-dirs --disable-updates --user --install build-flatpak com.github.kinten108101.Boki.json && flatpak run com.github.kinten108101.Boki
