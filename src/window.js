@@ -24,17 +24,18 @@ import { history } from './application.js';
 const g_list_box_bind_model =
 /**
  * @type {{
- *                        (list_box: Gtk.ListBox, model: Gio.ListModel,                                             widget_create_func: (item: GObject.Object) => Gtk.Widget): void;
- *   <T extends any = any>(list_box: Gtk.ListBox, model: { model: Readonly<T[]>, signals: ListModelSignalMethods }, widget_create_func: (item: T) => Gtk.Widget): void;
+ *                        (list_box: Gtk.ListBox, model: Gio.ListModel,                                             widget_create_func: (item: GObject.Object) => Gtk.Widget): () => void;
+ *   <T extends any = any>(list_box: Gtk.ListBox, model: { model: Readonly<T[]>, signals: ListModelSignalMethods }, widget_create_func: (item: T) => Gtk.Widget): () => void;
  * }}
  */
  ((list_box, model, widget_create_func) => {
 	if (model instanceof Gio.ListModel) {
-		return list_box.bind_model(model, widget_create_func);
+		list_box.bind_model(model, widget_create_func);
+		return () => {};
 	}
 	list_box.remove_all();
 
-	model.signals.connect('items-changed',
+	const using_items_changed = model.signals.connect('items-changed',
 		/**
 		 * @param {never} _obj
 		 * @param {number} position
@@ -52,6 +53,10 @@ const g_list_box_bind_model =
 			});
 		}
 	);
+
+	return () => {
+		model.signals.disconnect(using_items_changed);
+	};
 });
 
 /**
@@ -71,7 +76,7 @@ const HistoryPage = (builder, history_model, signals) => {
 	const history_list = /** @type {Gtk.ListBox | null} */ (builder.get_object('history_list'));
 	if (!history_list) throw new Error;
 
-	g_list_box_bind_model(history_list, { model: history_model, signals }, item => {
+	const bind_cleanup = g_list_box_bind_model(history_list, { model: history_model, signals }, item => {
 		const builder = Gtk.Builder.new_from_resource('/com/github/kinten108101/Boki/ui/history-row.ui');
 		const row = /** @type {Adw.ActionRow | null} */ (builder.get_object('row'));
 		if (!row) throw new Error;
@@ -83,7 +88,7 @@ const HistoryPage = (builder, history_model, signals) => {
 	const history_content_stack = /** @type {Gtk.Stack | null} */ (builder.get_object('history_content_stack'));
 	if (!history_content_stack) throw new Error;
 
-	signals.connect('items-changed', sync_create(() => {
+	const using_items_changed = signals.connect('items-changed', sync_create(() => {
 		if (history_model.length > 0) {
 			history_content_stack.set_visible_child_name('default');
 		} else {
@@ -91,7 +96,12 @@ const HistoryPage = (builder, history_model, signals) => {
 		}
 	}));
 
-	return {};
+	return {
+		cleanup: () => {
+			bind_cleanup();
+			signals.disconnect(using_items_changed);
+		}
+	};
 };
 
 /**
@@ -465,7 +475,7 @@ export function Window(application, settings) {
 	// @ts-expect-error
 	window.builder = builder;
 
-	HistoryPage(builder, history.items, history.signals);
+	const history_page = HistoryPage(builder, history.items, history.signals);
 
 	const url_page = UrlPage(builder);
 
@@ -718,6 +728,11 @@ export function Window(application, settings) {
 		navigation_stack.pop_to_tag('home');
 	});
 	window.add_action(download_return);
+
+	window.connect('close-request', () => {
+		history_page.cleanup();
+		return false;
+	});
 
 	return { window, navigation_stack };
 }
