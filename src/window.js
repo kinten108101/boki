@@ -475,7 +475,7 @@ export function Window(application, settings) {
 	// @ts-expect-error
 	window.builder = builder;
 
-	const history_page = HistoryPage(builder, history.items, history.signals);
+	const history_page = HistoryPage(builder, history, history);
 
 	const url_page = UrlPage(builder);
 

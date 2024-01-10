@@ -66,10 +66,10 @@ const forwardSignalMethods = (signal_methods) => {
 					'signalHandlerIsConnected',
 				].includes(property_name) /** What about in keyword? */) {
 					// @ts-expect-error
-					return signal_methods[property_name];
+					return signal_methods[property_name].bind(signal_methods);
 				}
 				// @ts-expect-error
-				return iface[property_name];
+				return iface[property_name].bind(iface);
 			}
 		});
 	};
@@ -77,20 +77,20 @@ const forwardSignalMethods = (signal_methods) => {
 
 /**
  * @template {any} B
- * @template {Readonly<Array<B>>} K
+ * @template {Array<B> | Readonly<Array<B>>} K
  * @param {K} array
  */
 const forwardArrayMethods = (array) => {
 	/**
 	 * @template {object} T
 	 * @param {T} iface
-	 * @returns {T & K}
+	 * @returns {T & Readonly<K>}
 	 */
 	return (iface) => {
 		// @ts-expect-error
 		return new Proxy({}, {
 			get(_target, property_name) {
-				if ((typeof property_name === 'string' && [
+				if (typeof property_name === 'string' && [
 				    'toString',
 				    'toLocaleString',
 				    'pop',
@@ -112,12 +112,20 @@ const forwardArrayMethods = (array) => {
 				    'filter',
 				    'reduce',
 				    'reduceRight'
-				].includes(property_name)) || (typeof property_name === 'string' && is_number_string(property_name))) {
+				].includes(property_name)) {
+					// @ts-expect-error
+					return array[property_name].bind(array);
+				} else if (typeof property_name === 'string' && [
+				    'length',
+				].includes(property_name)) {
+					// @ts-expect-error
+					return array[property_name];
+				} else if (typeof property_name === 'string' && is_number_string(property_name)) {
 					// @ts-expect-error
 					return array[property_name];
 				}
 				// @ts-expect-error
-				return iface[property_name];
+				return iface[property_name].bind(iface);
 			}
 		});
 	};
@@ -314,14 +322,13 @@ export const History = (database) => {
 		console.debug('!!!');
 	});
 
-	return {
+	const methods = {
 		start,
 		restore,
 		add,
 		remove,
 		removeAll,
-		/** @type {Readonly<(typeof HistoryItem.prototype)[]>} */
-		items,
-		signals,
 	};
+
+	return forwardArrayMethods(items)(forwardSignalMethods(signals)(methods));
 };
