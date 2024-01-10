@@ -1,0 +1,9 @@
+@prefix dsc: <http://tracker.api.gnome.org/ontology/v3/dsc#> .
+
+<virtual-ontology-uri:com.github.kinten108101.Boki.ontology> a dsc:Ontology ;
+    dsc:title "Boki ontology" ;
+    dsc:description "Tracker database schema for Boki data." ;
+
+    dsc:localPrefix "boki" ;
+    dsc:baseUrl "https://urora.netlify.app#" ;
+    dsc:relativePath "./com.github.kinten108101.Boki.ontology" ;

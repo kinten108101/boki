@@ -18,6 +18,62 @@ import { MakeCompatPango, MakeTitleCompat } from './utils/markup.js';
 import { DownloadOrder } from './services/download.js';
 import { bytes2humanreadable, expand_path, retract_path } from './utils/files.js';
 import { DbServiceErrorEnum, db_service_error_quark } from './utils/error.js';
+import { HistoryItem } from './services/history.js';
+import { history } from './application.js';
+
+const g_list_box_bind_model =
+/**
+ * @type {{
+ *                        (list_box: Gtk.ListBox, model: Gio.ListModel,                                             widget_create_func: (item: GObject.Object) => Gtk.Widget): void;
+ *   <T extends any = any>(list_box: Gtk.ListBox, model: { model: Readonly<T[]>, signals: ListModelSignalMethods }, widget_create_func: (item: T) => Gtk.Widget): void;
+ * }}
+ */
+ ((list_box, model, widget_create_func) => {
+	if (model instanceof Gio.ListModel) {
+		return list_box.bind_model(model, widget_create_func);
+	}
+	list_box.remove_all();
+
+	model.signals.connect('items-changed',
+		/**
+		 * @param {never} _obj
+		 * @param {number} position
+		 * @param {number} removed
+		 * @param {number} added
+		 */
+		(_obj, position, removed, added) => {
+			Array(removed).fill(0).forEach(() => {
+				console.log('ha');
+				list_box.remove(list_box.get_row_at_index(position));
+			});
+			Array(added).fill(0).map((_, i) => position + i).forEach(x => {
+				const item = model.model[x];
+				list_box.append(widget_create_func(item));
+			});
+		}
+	);
+});
+
+/**
+ * @param {Gtk.Builder} builder
+ * @param {Readonly<typeof HistoryItem.prototype[]>} history_model
+ * @param {ListModelSignalMethods} signals
+ */
+const HistoryPage = (builder, history_model, signals) => {
+	const history_list = /** @type {Gtk.ListBox | null} */ (builder.get_object('history_list'));
+	if (!history_list) throw new Error;
+
+	g_list_box_bind_model(history_list, { model: history_model, signals }, item => {
+		const builder = Gtk.Builder.new_from_resource('/com/github/kinten108101/Boki/ui/history-row.ui');
+		const row = /** @type {Adw.ActionRow | null} */ (builder.get_object('row'));
+		if (!row) throw new Error;
+		row.set_title(item.display_name);
+		row.set_subtitle(item.steam_url.to_string());
+		return row;
+	});
+
+	return {};
+};
 
 /**
  * @param {Gtk.Widget} window
@@ -391,6 +447,8 @@ export function Window(application, settings) {
 	// @ts-expect-error
 	window.builder = builder;
 
+	const _history_page = HistoryPage(builder, history.items, history.signals);
+
 	const url_page = UrlPage(builder);
 
 	const preview_page = PreviewPage(builder);
@@ -485,6 +543,11 @@ export function Window(application, settings) {
 	    		item['description'],
 	    		item['file_size']
 	    	);
+
+	    	history.add({
+	    		display_name: item['title'],
+	    		steam_url: GLib.Uri.parse(url, GLib.UriFlags.NONE),
+	    	});
 
 			preview_page.set_location_dialog.set_initial_name((() => {
 				const raw = item['filename'] || '';

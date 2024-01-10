@@ -9,6 +9,8 @@ import { useFile } from './lib/file.js';
 import { Window } from './window.js';
 import { retract_path } from './utils/files.js';
 import { AboutWindow } from './widgets/about.js';
+import { Database } from './services/database.js';
+import { History } from './services/history.js';
 
 const get_xdg_download_dir = async () => {
 	const proc = Gio.Subprocess.new(['xdg-user-dir', 'DOWNLOAD'], Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE);
@@ -31,6 +33,20 @@ export const application = new Adw.Application({
 const settings = new Gio.Settings({
 	schema_id: 'com.github.kinten108101.Boki',
 });
+
+export const database = Database();
+export const history = History(database);
+
+database.start();
+history.start();
+
+const clear_history = new Gio.SimpleAction({
+	name: 'clear-history',
+});
+clear_history.connect('activate', () => {
+	history.removeAll().catch(logError);
+});
+application.add_action(clear_history);
 
 if (settings.get_boolean('first-launch')) {
 	(async () => {

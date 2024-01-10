@@ -8,6 +8,7 @@ import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 import Adw from 'gi://Adw';
 import Soup from 'gi://Soup';
+import Tracker from 'gi://Tracker';
 
 // Use promisify helper API
 Gio._promisify(Gdk.Clipboard.prototype, 'read_text_async', 'read_text_finish');
@@ -15,6 +16,10 @@ Gio._promisify(Soup.Session.prototype, 'send_and_read_async', 'send_and_read_fin
 Gio._promisify(Adw.MessageDialog.prototype, 'choose', 'choose_finish');
 Gio._promisify(Gtk.FileDialog.prototype, 'save', 'save_finish');
 Gio._promisify(Gtk.FileDialog.prototype, 'select_folder', 'select_folder_finish');
+Gio._promisify(Tracker.Batch.prototype, 'execute_async', 'execute_finish');
+Gio._promisify(Tracker.SparqlStatement.prototype, 'execute_async', 'execute_finish');
+Gio._promisify(Tracker.SparqlCursor.prototype, 'next_async', 'next_finish');
+Gio._promisify(Tracker.SparqlConnection.prototype, 'update_async', 'update_finish');
 
 /* Gio.Subprocess */
 Gio._promisify(Gio.Subprocess.prototype, 'communicate_async');

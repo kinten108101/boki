@@ -1,0 +1,32 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix nrl: <http://tracker.api.gnome.org/ontology/v3/nrl#>.
+
+@prefix boki: <https://urora.netlify.app#>.
+
+boki: a nrl:Namespace, nrl:Ontology;
+	nrl:prefix "boki";
+    nrl:lastModified "2024-01-10T00:00:00Z".
+
+boki:Item a rdfs:Class;
+    rdfs:subClassOf rdfs:Resource.
+
+boki:uuid a rdf:Property;
+    rdfs:domain boki:Item;
+    rdfs:range xsd:string;
+    nrl:maxCardinality 1.
+
+boki:HistoryItem a rdfs:Class;
+    rdfs:subClassOf boki:Item;
+    nrl:domainIndex boki:uuid.
+
+boki:steam_url a rdf:Property;
+    rdfs:domain boki:HistoryItem;
+    rdfs:range xsd:string;
+    nrl:maxCardinality 1.
+
+boki:display_name a rdf:Property;
+    rdfs:domain boki:HistoryItem;
+    rdfs:range xsd:string;
+    nrl:maxCardinality 1.

@@ -1,4 +1,5 @@
 interface = [
+	'ui/history-row.ui',
 	'ui/preferences.ui',
 	'ui/window.ui',
 ]
@@ -86,3 +87,5 @@ configure_file(
 	copy: true,
 	install_dir: get_option('datadir') / 'glib-2.0' / 'schemas',
 )
+
+subdir('tracker')

@@ -456,6 +456,7 @@ Adw.ApplicationWindow window {
 									icon-name: 'larger-brush-symbolic';
 									styles ['flat']
 									tooltip-text: _('Clear History');
+									action-name: 'app.clear-history';
 								}
 
 								[end]
@@ -479,32 +480,58 @@ Adw.ApplicationWindow window {
 										margin-end: 12;
 									}
 
+									Gtk.Label {
+										styles ['caption', 'dim-label']
+										label: _('Manage previously downloaded items.');
+										xalign: 0;
+										wrap: true;
+										wrap-mode: word_char;
+										margin-bottom: 12;
+										margin-start: 12;
+										margin-end: 12;
+									}
+
 									Gtk.Separator {}
 
-									Gtk.ScrolledWindow {
-										styles ['view']
-										vexpand: true;
+									Gtk.Stack {
+										Gtk.StackPage {
+											name: 'default';
+											child:
+												Gtk.ScrolledWindow {
+													styles ['view']
+													vexpand: true;
 
-										Adw.Clamp {
-											Gtk.ListBox {
-												margin-top: 12;
-												margin-bottom: 12;
-												margin-start: 12;
-												margin-end: 12;
+													Adw.Clamp {
+														Gtk.ListBox history_list {
+															margin-top: 12;
+															margin-bottom: 12;
+															margin-start: 12;
+															margin-end: 12;
 
-												valign: start;
-												selection-mode: none;
+															valign: start;
+															selection-mode: none;
 
-												styles ['boxed-list']
+															styles ['boxed-list']
 
-												Adw.ActionRow {
-													title: 'Add-on 1';
-												}
+															Adw.ActionRow {
+																title: 'Add-on 1';
+															}
 
-												Adw.ActionRow {
-													title: 'Add-on 2';
-												}
-											}
+															Adw.ActionRow {
+																title: 'Add-on 2';
+															}
+														}
+													}
+												};
+										}
+
+										Gtk.StackPage {
+											name: 'empty';
+											child:
+												Adw.StatusPage {
+													icon-name: 'document-open-recent-symbolic';
+													title: _('No Previous Downloads');
+												};
 										}
 									}
 								};
