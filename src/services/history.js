@@ -192,7 +192,6 @@ export const History = (database) => {
 						return [key, value];
 					case 'display_name':
 						if (typeof value !== 'string') break;
-						console.log('display name in pipeline:', value);
 						return [key, value];
 					case 'steam_url':
 						if (typeof value !== 'string') break;
