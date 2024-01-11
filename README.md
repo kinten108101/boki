@@ -6,6 +6,9 @@ Steam Workshop downloader client for GNOME.
 
 With Boki, you can download add-on/mod files from your favorite games on Steam.
 
+- Enter a URL to the Steam Workshop page of an add-on/mod item and Boki will download it for you;
+- See history of download attempts;
+
 The logo is inspired by an artwork by Tony Zenitium (Source: [here](https://zenitium.artstation.com/projects/3dm1XE) and [here](https://www.artstation.com/artwork/3dm1XE)).
 
 <p>
