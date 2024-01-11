@@ -124,8 +124,8 @@ msgid "Enter URL"
 msgstr "Nhập URL"
 
 #: data/ui/window.ui:XXX
-msgid "Validate"
-msgstr "Xác minh"
+msgid "_Validate"
+msgstr "_Xác minh"
 
 #: data/ui/window.ui:XXX
 msgid "File Details"
