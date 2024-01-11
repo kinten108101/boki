@@ -117,7 +117,7 @@ msgstr "Thông tin về Boki"
 
 #: data/ui/window.ui:XXX
 msgid "Enter _URL..."
-msgstr "Nhập URL..."
+msgstr "Nhập _URL..."
 
 #: data/ui/window.ui:XXX
 msgid "Enter URL"
