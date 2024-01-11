@@ -55,14 +55,24 @@ export const Database = () => {
 	const query = async (sparql) => {
 		const query = connection().query_statement(sparql, _cancellable);
 		if (!query) throw new Error;
-		return query.execute(_cancellable);
+		return (
+		/** @type {Promise<Tracker.SparqlCursor>} */
+		(new Promise((resolve, reject) => {
+			query.execute_async(_cancellable, (_query, result) => {
+				try {
+					resolve(_query.execute_finish(result));
+				} catch (error) {
+					reject(error);
+				}
+			});
+		})));
 	};
 
 	/**
 	 * @param {string} sparql
 	 */
 	const update = async (sparql) => {
-		await connection().update(sparql, _cancellable);
+		await connection().update_async(sparql, _cancellable);
 	};
 
 	return {
