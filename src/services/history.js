@@ -22,12 +22,13 @@ const Tracker = {
 export const HistoryItem = class {
 
 	/**
-	 * @param {{ uuid: string, display_name: string, steam_url: GLib.Uri }} params
+	 * @param {{ uuid: string, display_name: string, steam_url: GLib.Uri, saved_location: Gio.File }} params
 	 */
-	constructor({uuid, display_name, steam_url}) {
+	constructor({uuid, display_name, steam_url, saved_location}) {
 		this.uuid = uuid;
 		this.display_name = display_name;
 		this.steam_url = steam_url;
+		this.saved_location = saved_location;
 	}
 };
 
@@ -148,11 +149,12 @@ export const History = (database) => {
 
 	const restore = async () => {
 		const cursor = await database.query(
-			`SELECT ?uuid ?steam_url ?display_name {
+			`SELECT ?uuid ?steam_url ?display_name ?saved_location {
 				?history_item a boki:HistoryItem;
 					boki:uuid ?uuid;
 					boki:steam_url ?steam_url;
-					boki:display_name ?display_name.
+					boki:display_name ?display_name;
+					boki:saved_location ?saved_location.
 			}`);
 
 		(await (
@@ -176,6 +178,7 @@ export const History = (database) => {
 			 *  & MapEntry<'steam_url', GLib.Uri>
 			 * 	& MapEntry<'display_name', string>
 			 *  & MapEntry<'uuid', string>
+			 *  & MapEntry<'saved_location', Gio.File>
 			 *  & Map<any, any>}
 			 **/
 			(new Map(/** @type {any} */(
@@ -203,6 +206,10 @@ export const History = (database) => {
 							break;
 						}
 						return [key, url];
+					case 'saved_location':
+						if (typeof value !== 'string') break;
+						const path = Gio.File.new_for_path(value);
+						return [key, path];
 					}
 					console.debug('Bad prop:', key);
 					return null;
@@ -212,18 +219,18 @@ export const History = (database) => {
 			const uuid = dict.get('uuid');
 			const display_name = dict.get('display_name');
 			const steam_url = dict.get('steam_url');
+			const saved_location = dict.get('saved_location');
 
-			if (steam_url) {
-				console.log('good url case:', uuid, display_name, steam_url);
-			}
+			console.debug('dict data:', uuid, display_name, steam_url, saved_location);
 
 			if (uuid === undefined
 				|| display_name === undefined
-				|| steam_url === undefined) {
+				|| steam_url === undefined
+				|| saved_location === undefined) {
 				return null;
 			}
 
-			return new HistoryItem({ uuid, display_name, steam_url });
+			return new HistoryItem({ uuid, display_name, steam_url, saved_location });
 		}).forEach(x => {
 			if (x) items.push(x);
 		});
@@ -232,13 +239,13 @@ export const History = (database) => {
 	};
 
 	/**
-	 * @param {{ display_name: string, steam_url: GLib.Uri }} params
+	 * @param {{ display_name: string, steam_url: GLib.Uri, saved_location: Gio.File }} params
 	 */
-	const add = async ({ display_name, steam_url }) => {
+	const add = async ({ display_name, steam_url, saved_location }) => {
 		const uuid = GLib.uuid_string_random();
 		if (!uuid) throw new Error;
 
-		const item = new HistoryItem({uuid, display_name, steam_url});
+		const item = new HistoryItem({ uuid, display_name, steam_url, saved_location });
 
 		const resource = Tracker.Resource.new(null);
 		resource.set_uri('rdf:type', 'boki:HistoryItem');
@@ -246,6 +253,7 @@ export const History = (database) => {
 		resource.set_string('boki:display_name', item.display_name);
 		const url = item.steam_url.to_string();
 		resource.set_string('boki:steam_url', url || '');
+		resource.set_string('boki:saved_location', item.saved_location.get_path() || '');
 
 		await database.batch(resource);
 

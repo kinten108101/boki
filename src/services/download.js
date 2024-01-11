@@ -53,14 +53,18 @@ export const DownloadOrder = GObject.registerClass({
   	/** @type {GLib.Uri} */
   	uri;
 
+  	/** @type {any} */
+  	steam_response;
+
   	/**
   	 * @constructs
   	 * @param {string} uri
   	 * @param {number?} size
   	 * @param {string} saved_location
   	 * @param {Soup.Session} session
+  	 * @param {any} steam_response
   	 **/
-  	constructor(uri, size, saved_location, session) {
+  	constructor(uri, size, saved_location, session, steam_response) {
 		super({});
 		this.id = String(uri) + String(saved_location);
 		this.uri = GLib.Uri.parse(uri, GLib.UriFlags.NONE);
@@ -71,6 +75,7 @@ export const DownloadOrder = GObject.registerClass({
 		const _path = Gio.File.new_for_path(saved_location);
 		this.saved_location = _path;
 		this.session = session;
+		this.steam_response = steam_response;
 		this.gbytes = [];
   	}
 

@@ -7,7 +7,7 @@
 
 boki: a nrl:Namespace, nrl:Ontology;
 	nrl:prefix "boki";
-    nrl:lastModified "2024-01-10T00:00:00Z".
+    nrl:lastModified "2024-01-11T00:00:00Z".
 
 boki:Item a rdfs:Class;
     rdfs:subClassOf rdfs:Resource.
@@ -27,6 +27,11 @@ boki:steam_url a rdf:Property;
     nrl:maxCardinality 1.
 
 boki:display_name a rdf:Property;
+    rdfs:domain boki:HistoryItem;
+    rdfs:range xsd:string;
+    nrl:maxCardinality 1.
+
+boki:saved_location a rdf:Property;
     rdfs:domain boki:HistoryItem;
     rdfs:range xsd:string;
     nrl:maxCardinality 1.

@@ -21,6 +21,7 @@ import { DbServiceErrorEnum, db_service_error_quark } from './utils/error.js';
 import { HistoryItem } from './services/history.js';
 import { history } from './application.js';
 import { sequence, sync_create } from './lib/functional.js';
+import { TOAST_TIMEOUT_SHORT } from './lib/gtk.js';
 
 const g_list_box_bind_model =
 /**
@@ -82,6 +83,30 @@ const HistoryPage = (builder, history_model, signals) => {
 		if (!row) throw new Error;
 		row.set_title(item.display_name);
 		row.set_subtitle(item.steam_url.to_string());
+
+		const show_in_folder = /** @type {Gtk.Button | null} */ (builder.get_object('show_in_folder'));
+		if (!show_in_folder) throw new Error;
+
+		show_in_folder.connect('clicked', () => {
+			// TODO(kinten): Check hash for file identity?
+			if (!item.saved_location.query_exists(null)) {
+				toaster()?.add_toast(new Adw.Toast({
+					title: _('File was moved or deleted'),
+					timeout: TOAST_TIMEOUT_SHORT,
+				}));
+				return;
+			}
+			const folder = item.saved_location.get_parent();
+			if (folder === null || (folder !== null && !folder?.query_exists(null))) {
+				toaster()?.add_toast(new Adw.Toast({
+					title: _('Cannot open folder'),
+					timeout: TOAST_TIMEOUT_SHORT,
+				}));
+				return;
+			}
+			Gtk.show_uri(null, folder.get_uri() || '', Gdk.CURRENT_TIME);
+		});
+
 		return row;
 	});
 
@@ -564,18 +589,17 @@ export function Window(application, settings) {
 	    		item['file_url'],
 	    		item['file_size'],
 	    		'',
-	    		session);
+	    		session,
+	    		{
+	    			...item,
+	    			request_url: url,
+	    		});
 	    	preview_page.present_item(
 	    		item['title'],
 	    		author,
 	    		item['description'],
 	    		item['file_size']
 	    	);
-
-	    	history.add({
-	    		display_name: item['title'],
-	    		steam_url: GLib.Uri.parse(url, GLib.UriFlags.NONE),
-	    	});
 
 			preview_page.set_location_dialog.set_initial_name((() => {
 				const raw = item['filename'] || '';
@@ -667,6 +691,11 @@ export function Window(application, settings) {
       	  	const parent = obj.saved_location.get_parent();
       	  	if (!parent) throw new Error;
       	  	progress_page.set_state('finished', parent);
+      	  	history.add({
+	    		display_name: order.steam_response['title'],
+	    		steam_url: GLib.Uri.parse(order.steam_response['request_url'], GLib.UriFlags.NONE),
+	    		saved_location: order.saved_location,
+	    	}).catch(logError);
       	  	console.debug('Download completed');
 	    });
 
