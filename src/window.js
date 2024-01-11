@@ -20,6 +20,7 @@ import { bytes2humanreadable, expand_path, retract_path } from './utils/files.js
 import { DbServiceErrorEnum, db_service_error_quark } from './utils/error.js';
 import { HistoryItem } from './services/history.js';
 import { history } from './application.js';
+import { sequence, sync_create } from './lib/functional.js';
 
 const g_list_box_bind_model =
 /**
@@ -37,8 +38,8 @@ const g_list_box_bind_model =
 	// NOTE(kinten): It's good practice to remove any existing rows.
 	// Also, in our app, there are placeholder rows in the list
 	list_box.remove_all();
-	Array(model.model.length).fill(0).forEach((_, i) => {
-		const item = model.model[i];
+	sequence(model.model.length).forEach(x => {
+		const item = model.model[x];
 		list_box.append(widget_create_func(item));
 	});
 
@@ -50,11 +51,11 @@ const g_list_box_bind_model =
 		 * @param {number} added
 		 */
 		(_obj, position, removed, added) => {
-			Array(removed).fill(0).forEach(() => {
+			sequence(removed).forEach(() => {
 				console.log('ha');
 				list_box.remove(list_box.get_row_at_index(position));
 			});
-			Array(added).fill(0).map((_, i) => position + i).forEach(x => {
+			sequence(added).forEach(x => {
 				const item = model.model[x];
 				list_box.append(widget_create_func(item));
 			});
@@ -65,14 +66,6 @@ const g_list_box_bind_model =
 		model.signals.disconnect(using_items_changed);
 	};
 });
-
-/**
- * @param {() => void} cb
- */
-const sync_create = (cb) => {
-	cb();
-	return cb;
-};
 
 /**
  * @param {Gtk.Builder} builder

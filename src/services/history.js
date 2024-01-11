@@ -3,6 +3,7 @@ import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
 import { is_number_string } from '../utils/string.js';
 import { sparql_unpack_value } from '../lib/tracker.js';
+import { sequence } from '../lib/functional.js';
 
 const Tracker = {
 	..._Tracker,
@@ -18,12 +19,6 @@ const Tracker = {
 	},
 };
 
-/** @param {any} obj */
-const speak = (obj) => {
-	console.log(obj);
-	return obj;
-};
-
 export const HistoryItem = class {
 
 	/**
@@ -34,13 +29,6 @@ export const HistoryItem = class {
 		this.display_name = display_name;
 		this.steam_url = steam_url;
 	}
-};
-
-/**
- * @param {number} length
- */
-const sequence = length => {
-	return (Array(length).fill(0).map((_, i) => i));
 };
 
 /**
