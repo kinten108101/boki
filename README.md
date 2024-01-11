@@ -9,8 +9,6 @@ With Boki, you can download add-on/mod files from your favorite games on Steam.
 - Enter a URL to the Steam Workshop page of an add-on/mod item and Boki will download it for you;
 - See history of download attempts;
 
-The logo is inspired by an artwork by Tony Zenitium (Source: [here](https://zenitium.artstation.com/projects/3dm1XE) and [here](https://www.artstation.com/artwork/3dm1XE)).
-
 <p>
 	<img src="data/resources/preview-1.png" width="32%">
 	<img src="data/resources/preview-2.png" width="32%">
@@ -50,4 +48,8 @@ These packages are type declarations for the GTK and Adwaita libraries. Now you 
 
 ## About
 
+The logo is heavily inspired by an artwork by Tony Zenitium (Source: [here](https://zenitium.artstation.com/projects/3dm1XE) and [here](https://www.artstation.com/artwork/3dm1XE)).
+
 "Boki" derives from the names of two fictional characters "Bocchi" and "Kita" from the popular Japanese comic series/animated show "Bocchi the Rock!".
+
+
