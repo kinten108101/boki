@@ -449,16 +449,7 @@ Adw.ApplicationWindow window {
 							Adw.HeaderBar {
 								title-widget:
 									Adw.WindowTitle {
-										title: 'Boki';
 									};
-
-								[start]
-								Gtk.Button {
-									icon-name: 'larger-brush-symbolic';
-									styles ['flat']
-									tooltip-text: _('Clear History');
-									action-name: 'app.clear-history';
-								}
 
 								[end]
 								Gtk.MenuButton {
@@ -467,26 +458,29 @@ Adw.ApplicationWindow window {
 									primary: true;
 									tooltip-text: _('Main Menu');
 								}
+
+								[start]
+								Gtk.Button {
+									icon-name: 'larger-brush-symbolic';
+									styles ['flat']
+									tooltip-text: _('Clear History');
+									action-name: 'app.clear-history';
+								}
 							}
 
 							content:
 								Gtk.Box {
 									orientation: vertical;
 
+									Adw.StatusPage {
+										styles ['compact']
+										title: _('History');
+										description: _('Manage previously downloaded items.');
+									}
+
 									Gtk.SearchEntry {
 										placeholder-text: _('Search');
 										margin-top: 6; // accounted headerbar's padding
-										margin-bottom: 12;
-										margin-start: 12;
-										margin-end: 12;
-									}
-
-									Gtk.Label {
-										styles ['caption', 'dim-label']
-										label: _('Manage previously downloaded items.');
-										xalign: 0;
-										wrap: true;
-										wrap-mode: word_char;
 										margin-bottom: 12;
 										margin-start: 12;
 										margin-end: 12;
