@@ -148,8 +148,8 @@ msgid "The file will be saved under this path."
 msgstr "Tập tin sẽ được lưu vào vị trí này."
 
 #: data/ui/window.ui:XXX
-msgid "Download"
-msgstr "Tải"
+msgid "_Download"
+msgstr "_Tải"
 
 #: data/ui/window.ui:XXX
 msgid "Download In Progress"
