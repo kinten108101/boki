@@ -12,6 +12,8 @@ import { DynamicToaster } from './lib/dynamic-toaster.js';
 import { useCopyText } from './lib/copy-text.js';
 import { useMessage } from './lib/message.js';
 import { useToasterProvider, toaster } from './lib/toaster-provider.js';
+import { sequence, sync_create } from './lib/functional.js';
+import { TOAST_TIMEOUT_SHORT } from './lib/gtk.js';
 
 import { Steamworks } from './services/steamworks.js';
 import { MakeCompatPango, MakeTitleCompat } from './utils/markup.js';
@@ -20,8 +22,6 @@ import { bytes2humanreadable, expand_path, retract_path } from './utils/files.js
 import { DbServiceErrorEnum, db_service_error_quark } from './utils/error.js';
 import { HistoryItem } from './services/history.js';
 import { history } from './application.js';
-import { sequence, sync_create } from './lib/functional.js';
-import { TOAST_TIMEOUT_SHORT } from './lib/gtk.js';
 
 const g_list_box_bind_model =
 /**
