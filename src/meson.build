@@ -19,6 +19,7 @@ script = [
 	'utils/markup.js',
 	'utils/string.js',
 	'widgets/about.js',
+	'widgets/shortcut-label.js',
 	'widgets/spinning-button.js',
 	'application.js',
 	'main.js',

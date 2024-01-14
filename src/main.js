@@ -75,6 +75,7 @@ Gio._promisify(Gio.OutputStream.prototype, 'writev_all_async', 'writev_all_finis
 Gio._promisify(Gio.OutputStream.prototype, 'writev_async', 'writev_finish');
 
 // Force run these modules to register gtypes
+import './widgets/shortcut-label.js';
 import './widgets/spinning-button.js';
 
 import { application } from "./application.js";
