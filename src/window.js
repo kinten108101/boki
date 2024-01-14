@@ -23,6 +23,7 @@ import { bytes2humanreadable, expand_path, retract_path } from './utils/files.js
 import { DbServiceErrorEnum, db_service_error_quark } from './utils/error.js';
 import { HistoryItem } from './services/history.js';
 import { history } from './application.js';
+import { CustomSwipeTracker } from './widgets/swipe-tracker.js';
 
 const g_list_box_bind_model =
 /**
@@ -120,7 +121,31 @@ const HistoryPage = (builder, history_model, signals) => {
 		}
 	}));
 
+	const history_headerbar = builder.get_object('history_headerbar', Adw.HeaderBar);
+	const content_head = builder.get_object('content_head', Gtk.Box);
+	const history_head_status_revealer = builder.get_object('history_head_status_revealer', Gtk.Revealer);
+	const history_headerbar_swipetracker = CustomSwipeTracker(history_headerbar, Gtk.Orientation.VERTICAL);
+	const content_head_swipetracker = CustomSwipeTracker(content_head, Gtk.Orientation.VERTICAL);
+
+	/**
+	 * @param {any} _obj
+	 * @param {number} delta_y
+	 */
+	const on_swipe = (_obj, delta_y) => {
+		if (delta_y > 1) {
+			history_head_status_revealer.set_reveal_child(true);
+		} else if (delta_y < -1) {
+			history_head_status_revealer.set_reveal_child(false);
+		}
+	};
+
+	history_headerbar_swipetracker.connect('update-swipe', on_swipe);
+	content_head_swipetracker.connect('update-swipe', on_swipe);
+
 	return {
+		page_cleanup: () => {
+			history_head_status_revealer.set_reveal_child(true);
+		},
 		cleanup: () => {
 			bind_cleanup();
 			signals.disconnect(using_items_changed);
@@ -468,6 +493,17 @@ export const SingletonBuilder = GObject.registerClass({}, class extends Gtk.Buil
 	}
 });
 
+/**
+ * @param {number} millis
+ */
+const delay = async (millis) => {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			resolve(undefined);
+		}, millis);
+	});
+};
+
 const Builder = SingletonBuilder;
 
 /**
@@ -563,6 +599,15 @@ export function Window(application, settings) {
 			url_page.resolve_error();
 		} else if (tag === 'preview') {
 			preview_page.resolve_error();
+		}
+	});
+
+	navigation_stack.connect('popped', (_obj, page) => {
+		const tag = page.get_tag();
+		if (tag === 'history') {
+			delay(500).then(() => {
+				history_page.page_cleanup();
+			});
 		}
 	});
 

@@ -446,7 +446,7 @@ Adw.ApplicationWindow window {
 					child:
 						Adw.ToolbarView {
 							[top]
-							Adw.HeaderBar {
+							Adw.HeaderBar history_headerbar {
 								title-widget:
 									Adw.WindowTitle {
 									};
@@ -472,18 +472,27 @@ Adw.ApplicationWindow window {
 								Gtk.Box {
 									orientation: vertical;
 
-									Adw.StatusPage {
-										styles ['compact']
-										title: _('History');
-										description: _('Manage previously downloaded items.');
-									}
+									Gtk.Box content_head {
+										orientation: vertical;
 
-									Gtk.SearchEntry {
-										placeholder-text: _('Search');
-										margin-top: 6; // accounted headerbar's padding
-										margin-bottom: 12;
-										margin-start: 12;
-										margin-end: 12;
+										Gtk.Revealer history_head_status_revealer {
+											transition-type: slide_up;
+											reveal-child: true;
+
+											Adw.StatusPage {
+												styles ['compact']
+												title: _('History');
+												description: _('Manage previously downloaded items.');
+											}
+										}
+
+										Gtk.SearchEntry {
+											placeholder-text: _('Search');
+											margin-top: 6; // accounted headerbar's padding
+											margin-bottom: 12;
+											margin-start: 12;
+											margin-end: 12;
+										}
 									}
 
 									Gtk.Separator {}
