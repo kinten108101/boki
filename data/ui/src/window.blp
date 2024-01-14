@@ -195,81 +195,81 @@ Adw.ApplicationWindow window {
 												vexpand: true;
 
 											    Adw.PreferencesGroup {
-											      Adw.ActionRow {
-											        styles ["download-page-row"]
-											        [prefix]
-											        Gtk.Grid {
-											          hexpand: true;
-											          column-spacing: 10;
+											      	Adw.ActionRow {
+											        	styles ["download-page-row"]
+											        	[prefix]
+											        	Gtk.Grid {
+											          		hexpand: true;
+											          		column-spacing: 10;
 
-											          Gtk.Box {
-											            hexpand: true;
-											            orientation: vertical;
-											            valign: center;
+											          		Gtk.Box {
+											            		hexpand: true;
+											            		orientation: vertical;
+											            		valign: center;
 
-											            Gtk.Label addon_name {
-											              styles ["title"]
-											              label: '广州增城 （Zengcheng）Lv7.3'; // placeholder
-											              ellipsize: end;
-											              xalign: 0;
-											            }
+										            			Gtk.Label addon_name {
+													              	styles ["title"]
+													              	label: '广州增城 （Zengcheng）Lv7.3'; // placeholder
+													              	ellipsize: end;
+													              	xalign: 0;
+													            }
 
-											            Gtk.Label creator {
-											              styles ["subtitle"]
-											              label: '21lovely'; // placeholder
-											              ellipsize: end;
-											              xalign: 0;
-											            }
+													            Gtk.Label creator {
+													              	styles ["subtitle"]
+													              	label: '21lovely'; // placeholder
+													              	ellipsize: end;
+													              	xalign: 0;
+													            }
 
-											            layout {
-											              row: 0;
-											              column: 1;
-											            }
-											          }
+													            layout {
+													              	row: 0;
+													              	column: 1;
+													            }
+											        		}
 
-											          Gtk.Label excerpt {
-											            visible: true;
-											            styles ["dim-label", "subtitle"]
-											            label: '人最宝贵的东西是生命。生命对人来说只有一次。因此，人的一生应当这样度过：当一个人回首往事时，不因虚度年华而悔恨，也不因碌碌无为而羞愧；这样，在他临死的时候，能够说，我把整个生命'; // placeholder
-											            margin-top: 5;
+													        Gtk.Label excerpt {
+													            visible: true;
+													            styles ["dim-label", "subtitle"]
+													            label: '人最宝贵的东西是生命。生命对人来说只有一次。因此，人的一生应当这样度过：当一个人回首往事时，不因虚度年华而悔恨，也不因碌碌无为而羞愧；这样，在他临死的时候，能够说，我把整个生命'; // placeholder
+													            margin-top: 5;
 
-											            single-line-mode: true;
-											            use-markup: true;
-											            xalign: 0;
-											            wrap: true;
-											            wrap-mode: word_char;
-											            ellipsize: end;
-											            lines: 2;
+													            single-line-mode: true;
+													            use-markup: true;
+													            xalign: 0;
+													            wrap: true;
+													            wrap-mode: word_char;
+													            ellipsize: end;
+													            lines: 2;
 
-											            layout {
-											              row: 1;
-											              column: 1;
-											            }
-											          }
-											        }
-											      }
+													            layout {
+													              	row: 1;
+													              	column: 1;
+													            }
+													        }
+											        	}
+											      	}
 											    }
 
 											    Adw.PreferencesGroup {
-											      title: _('File Details');
+											      	title: _('File Details');
 
-											      Adw.ActionRow size {
-											        title: _('Estimated Size');
-											        subtitle: '52 MB'; // placeholder
-											        styles ['property']
-											        activatable-widget: copy_size_button;
+										      		Adw.ActionRow size {
+											        	title: _('Estimated Size');
+											        	subtitle: '52 MB'; // placeholder
+											        	styles ['property']
+											        	activatable-widget: copy_size_button;
 
-											        [suffix]
-											        Gtk.Button copy_size_button {
-											        	valign: center;
-											        	halign: center;
-											        	icon-name: 'edit-copy-symbolic';
-											        	styles ['flat']
+											        	[suffix]
+											        	Gtk.Button copy_size_button {
+											        		valign: center;
+											        		halign: center;
+											        		icon-name: 'edit-copy-symbolic';
+											        		styles ['flat']
 
-											        	action-name: 'copy-text.copy-text';
-											        	action-target: '("{size.subtitle}",)';
-											        }
-											      }
+											        		action-name: 'copy-text.copy-text';
+											        		action-target: '("{size.subtitle}",)';
+											        	}
+											      	}
 											    }
 
 											    Adw.PreferencesGroup {
