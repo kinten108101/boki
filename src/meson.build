@@ -3,6 +3,7 @@ script = [
 	'lib/copy-text.js',
 	'lib/dynamic-toaster.js',
 	'lib/file.js',
+	'lib/forward-methods.js',
 	'lib/functional.js',
 	'lib/gtk.js',
 	'lib/message.js',
