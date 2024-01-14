@@ -53,7 +53,6 @@ const g_list_box_bind_model =
 		 */
 		(_obj, position, removed, added) => {
 			sequence(removed).forEach(() => {
-				console.log('ha');
 				list_box.remove(list_box.get_row_at_index(position));
 			});
 			sequence(added).forEach(x => {
