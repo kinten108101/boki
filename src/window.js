@@ -80,9 +80,9 @@ const HistoryPage = (builder, history_model, signals) => {
 		const builder = Gtk.Builder.new_from_resource('/com/github/kinten108101/Boki/ui/history-row.ui');
 		const row = /** @type {Adw.ActionRow | null} */ (builder.get_object('row'));
 		if (!row) throw new Error;
-		row.set_title(item.display_name);
-		row.set_subtitle(item.steam_url.to_string());
 		useCopyText(row, builder);
+		row.set_title(MakeCompatPango(item.display_name));
+		row.set_subtitle(MakeCompatPango(item.steam_url.to_string() || ''));
 
 		const show_in_folder = /** @type {Gtk.Button | null} */ (builder.get_object('show_in_folder'));
 		if (!show_in_folder) throw new Error;
