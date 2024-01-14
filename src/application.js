@@ -5,14 +5,14 @@ import Adw from 'gi://Adw';
 import { gettext as _ } from "gettext";
 
 import { useFile } from './lib/file.js';
+import { registerOwnerResolver, toaster } from './lib/toaster-provider.js';
+import { TOAST_TIMEOUT_SHORT } from './lib/gtk.js';
 
 import { Window } from './window.js';
 import { retract_path } from './utils/files.js';
 import { AboutWindow } from './widgets/about.js';
 import { Database } from './services/database.js';
 import { History } from './services/history.js';
-import { registerOwnerResolver, toaster } from './lib/toaster-provider.js';
-import { TOAST_TIMEOUT_SHORT } from './lib/gtk.js';
 import { settings } from './utils/settings.js';
 
 const get_xdg_download_dir = async () => {
