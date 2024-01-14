@@ -19,6 +19,7 @@ script = [
 	'utils/error.js',
 	'utils/files.js',
 	'utils/markup.js',
+	'utils/settings.js',
 	'utils/string.js',
 	'widgets/about.js',
 	'widgets/shortcut-label.js',

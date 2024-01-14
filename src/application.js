@@ -13,6 +13,7 @@ import { Database } from './services/database.js';
 import { History } from './services/history.js';
 import { registerOwnerResolver, toaster } from './lib/toaster-provider.js';
 import { TOAST_TIMEOUT_SHORT } from './lib/gtk.js';
+import { settings } from './utils/settings.js';
 
 const get_xdg_download_dir = async () => {
 	const proc = Gio.Subprocess.new(['xdg-user-dir', 'DOWNLOAD'], Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE);
@@ -30,10 +31,6 @@ GLib.set_application_name('Boki');
 
 export const application = new Adw.Application({
 	application_id: 'com.github.kinten108101.Boki',
-});
-
-const settings = new Gio.Settings({
-	schema_id: 'com.github.kinten108101.Boki',
 });
 
 export const database = Database();
