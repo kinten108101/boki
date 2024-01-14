@@ -1,0 +1,54 @@
+using Gtk 4.0;
+using Adw 1;
+
+$GenericShortcutsSection root {
+	section-name: 'all';
+	title: _('All');
+	max-height: 10;
+
+	$GenericShortcutsGroup {
+		title: _('General');
+
+		$GenericShortcutsShortcut {
+			title: _('Quit');
+			action-name: 'app.quit';
+		}
+
+		$GenericShortcutsShortcut {
+			title: _('Primary menu');
+			accelerator: 'F10';
+		}
+
+		$GenericShortcutsShortcut {
+			title: _('New window');
+			action-name: 'app.new-window';
+		}
+
+		$GenericShortcutsShortcut {
+			title: _('Close window');
+			action-name: 'window.close';
+		}
+
+		$GenericShortcutsShortcut {
+			title: _('Preferences');
+			action-name: 'app.show-preferences';
+		}
+
+		$GenericShortcutsShortcut {
+			title: _('Keyboard Shortcuts');
+			action-name: 'win.show-help-overlay';
+		}
+	}
+
+	$GenericShortcutsGroup {
+	  title: _('Browsing');
+
+	  $GenericShortcutsShortcut {
+			title: _('Go back');
+	  }
+
+	  $GenericShortcutsShortcut {
+			title: _('Go forth');
+	  }
+	}
+  }

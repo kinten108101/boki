@@ -6,6 +6,8 @@ script = [
 	'lib/file.js',
 	'lib/forward-methods.js',
 	'lib/functional.js',
+	'lib/generic-shortcuts-factory.js',
+	'lib/generic-shortcuts.js',
 	'lib/gtk.js',
 	'lib/message.js',
 	'lib/pjxml.js',

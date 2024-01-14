@@ -1,4 +1,5 @@
 interface = [
+	'ui/help-overlay.ui',
 	'ui/history-row.ui',
 	'ui/preferences.ui',
 	'ui/window.ui',
