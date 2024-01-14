@@ -12,6 +12,8 @@ Adw.ActionRow row {
 		styles ['circular', 'flat']
 		tooltip-text: _('Copy URL');
 		icon-name: 'chain-link-symbolic';
+		action-name: 'copy-text.copy-text';
+		action-target: '(\"{row.subtitle}\",)';
 	}
 
 	[suffix]

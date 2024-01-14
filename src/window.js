@@ -83,6 +83,7 @@ const HistoryPage = (builder, history_model, signals) => {
 		if (!row) throw new Error;
 		row.set_title(item.display_name);
 		row.set_subtitle(item.steam_url.to_string());
+		useCopyText(row, builder);
 
 		const show_in_folder = /** @type {Gtk.Button | null} */ (builder.get_object('show_in_folder'));
 		if (!show_in_folder) throw new Error;
