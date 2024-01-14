@@ -1,5 +1,6 @@
 script = [
 	'lib/builder-fmtstr.js',
+	'lib/builder.js',
 	'lib/copy-text.js',
 	'lib/dynamic-toaster.js',
 	'lib/file.js',
