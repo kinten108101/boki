@@ -11,8 +11,12 @@ import { get_value_from_formatting_string } from './builder-fmtstr.js';
 import { toaster } from './toaster-provider.js';
 
 /**
- * @param {Gtk.Widget} provider
- * @param {Gtk.Builder=} builder
+ * Implement for {@link provider} some generic clipboard-related actions.
+ *
+ * Currently copy-text.copy-text parameter does not support raw value, only a builder-fmtstr string.
+ *
+ * @param {Gtk.Widget} provider The ancestor widget that provides the action.
+ * @param {Gtk.Builder=} builder A {@link Gtk.Builder} used for the builder-fmtstr system.
  */
 export function useCopyText(provider, builder) {
 	const action_group = new Gio.SimpleActionGroup();
