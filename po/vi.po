@@ -58,8 +58,8 @@ msgid "Quit"
 msgstr "Thoát"
 
 #: data/gtk/help-overlay.ui:XXX
-msgid "Toggle primary menu"
-msgstr "Đóng mở menu chính"
+msgid "Primary menu"
+msgstr "Menu chính"
 
 #: data/ui/stop-download-window.ui:XXX
 msgid "Stop downloading?"
