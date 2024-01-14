@@ -56,8 +56,8 @@ const g_list_box_bind_model =
 				list_box.remove(list_box.get_row_at_index(position));
 			});
 			sequence(added).forEach(x => {
-				list_box.append(widget_create_func(item));
 				const item = model.model[position+x];
+				list_box.prepend(widget_create_func(item));
 			});
 		}
 	);
