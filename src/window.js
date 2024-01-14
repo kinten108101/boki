@@ -12,6 +12,7 @@ import { DynamicToaster } from './lib/dynamic-toaster.js';
 import { useCopyText } from './lib/copy-text.js';
 import { useMessage } from './lib/message.js';
 import { useToasterProvider, toaster } from './lib/toaster-provider.js';
+import { ExtendedBuilder } from './lib/builder.js';
 import { sequence, sync_create } from './lib/functional.js';
 import { TOAST_TIMEOUT_SHORT } from './lib/gtk.js';
 
@@ -68,13 +69,12 @@ const g_list_box_bind_model =
 });
 
 /**
- * @param {Gtk.Builder} builder
+ * @param {ReturnType<typeof ExtendedBuilder>} builder
  * @param {Readonly<typeof HistoryItem.prototype[]>} history_model
  * @param {ListModelSignalMethods} signals
  */
 const HistoryPage = (builder, history_model, signals) => {
-	const history_list = /** @type {Gtk.ListBox | null} */ (builder.get_object('history_list'));
-	if (!history_list) throw new Error;
+	const history_list = builder.get_object('history_list', Gtk.ListBox);
 
 	const bind_cleanup = g_list_box_bind_model(history_list, { model: history_model, signals }, item => {
 		const builder = Gtk.Builder.new_from_resource('/com/github/kinten108101/Boki/ui/history-row.ui');
@@ -110,8 +110,7 @@ const HistoryPage = (builder, history_model, signals) => {
 		return row;
 	});
 
-	const history_content_stack = /** @type {Gtk.Stack | null} */ (builder.get_object('history_content_stack'));
-	if (!history_content_stack) throw new Error;
+	const history_content_stack = builder.get_object('history_content_stack', Gtk.Stack);
 
 	const using_items_changed = signals.connect('items-changed', sync_create(() => {
 		if (history_model.length > 0) {
@@ -476,7 +475,7 @@ const Builder = SingletonBuilder;
  * @param {Gio.Settings} settings
  **/
 export function Window(application, settings) {
-	const builder = new Builder();
+	const builder = ExtendedBuilder(new Builder());
 	GObject.type_ensure(Adw.Window.$gtype);
 	builder.add_from_resource('/com/github/kinten108101/Boki/ui/window.ui');
 
