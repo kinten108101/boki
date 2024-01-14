@@ -24,6 +24,7 @@ script = [
 	'widgets/about.js',
 	'widgets/shortcut-label.js',
 	'widgets/spinning-button.js',
+	'widgets/swipe-tracker.js',
 	'application.js',
 	'main.js',
 	'window.js',
