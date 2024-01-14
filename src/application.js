@@ -61,7 +61,7 @@ clear_history.connect('activate', () => {
 	history.removeAll()
 		.then(() => {
 			toaster()?.add_toast(new Adw.Toast({
-				title: _('Cleared download history'),
+				title: _('Cleared history'),
 				timeout: TOAST_TIMEOUT_SHORT,
 			}));
 		})
