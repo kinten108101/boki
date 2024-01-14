@@ -29,7 +29,7 @@ menu primary_menu {
 
 	section {
 		item (_("Preferences"), "app.show-preferences")
-		item (_("Keyboard Shortcuts"), "win.show-help-overlay")
+		item (_("Keyboard Shortcuts"), "app.show-help-alt")
 		item (_("About Boki"), "app.show-about")
 	}
 }
@@ -37,6 +37,7 @@ menu primary_menu {
 Adw.ApplicationWindow window {
 	default-height: 600;
 	default-width: 420;
+	styles ['about']
 
 	Adw.ToastOverlay {
 		child:
@@ -526,6 +527,277 @@ Adw.ApplicationWindow window {
 													icon-name: 'document-open-recent-symbolic';
 													title: _('No Previous Downloads');
 												};
+										}
+									}
+								};
+						};
+				}
+
+				Adw.NavigationPage {
+					title: _('Preferences');
+					tag: 'preferences';
+					child:
+						Adw.ToolbarView {
+							[top]
+							Adw.HeaderBar {
+							}
+
+							content:
+								Adw.PreferencesPage preferences_page {
+									icon-name: "applications-system-symbolic";
+							    	title: _("General");
+
+							    	Adw.PreferencesGroup {
+							    		Adw.ActionRow default_directory_row {
+									        title: _("Download Directory");
+									        subtitle: "Select Location"; // Placeholder
+									        activatable-widget: set_default_directory;
+
+									        [suffix]
+									        Gtk.Button set_default_directory {
+									        	valign: center;
+									        	halign: center;
+									        	action-name: 'file.select-folder';
+									        	action-target: '("download-directory","")';
+									        	icon-name: 'document-open-symbolic';
+									        	styles ['flat']
+									        }
+
+									        [suffix]
+									        Gtk.Button {
+									        	valign: center;
+									        	icon-name: 'user-trash-symbolic';
+									        	styles ['flat']
+									        	action-name: 'file.set';
+									        	action-target: '("download-directory","")';
+									        }
+								    	}
+							    	}
+								};
+						};
+				}
+
+				Adw.NavigationPage {
+					title: _('About');
+					tag: 'about';
+					child:
+						Adw.ToolbarView {
+							styles ['main-page']
+
+							[top]
+							Adw.HeaderBar {
+								title-widget:
+									Adw.WindowTitle {};
+							}
+
+							content:
+								Gtk.Box {
+									orientation: vertical;
+
+									Gtk.Box {
+										orientation: vertical;
+										spacing: 4;
+										margin-top: 12;
+										margin-bottom: 8;
+
+										Gtk.Image application_icon_image {
+											pixel-size: 128;
+											styles ['icon-dropshadow']
+										}
+
+										Gtk.Label application_name_label {
+											styles ['title-1']
+										}
+
+										Gtk.Label developer_name_label {
+										}
+
+										Gtk.Button version_button {
+											halign: center;
+											margin-top: 4;
+											styles ['app-version']
+										}
+									}
+
+									Gtk.ScrolledWindow {
+										margin-top: 16;
+										vexpand: true;
+
+										Adw.Clamp {
+											margin-start: 12;
+											margin-end: 12;
+
+											Gtk.Box {
+												orientation: vertical;
+												spacing: 16;
+
+												Adw.PreferencesGroup {
+													Adw.ActionRow website_row {
+														title: _('_Website');
+														use-underline: true;
+
+														[suffix]
+														Gtk.Image {
+															icon-name: 'adw-external-link-symbolic';
+															accessible-role: presentation;
+														}
+													}
+
+												}
+
+												Adw.PreferencesGroup {
+													Adw.ActionRow issue_row {
+														title: _('_Report an Issue');
+														use-underline: true;
+
+														[suffix]
+														Gtk.Image {
+															icon-name: 'adw-external-link-symbolic';
+															accessible-role: presentation;
+														}
+													}
+
+													Adw.ActionRow troubleshooting_row {
+														title: _('_Troubleshooting');
+														use-underline: true;
+
+														[suffix]
+														Gtk.Image {
+															icon-name: 'go-next-symbolic';
+															accessible-role: presentation;
+														}
+													}
+												}
+
+												Adw.PreferencesGroup {
+													Adw.ActionRow ack_row {
+														title: _('Acknowledgements');
+														use-underline: true;
+
+														[suffix]
+														Gtk.Image {
+															icon-name: 'go-next-symbolic';
+															accessible-role: presentation;
+														}
+													}
+												}
+											}
+										}
+									}
+								};
+						};
+				}
+
+				Adw.NavigationPage {
+					title: _('Shortcuts');
+					tag: 'shortcuts';
+					child:
+						Adw.ToolbarView {
+							[top]
+							Adw.HeaderBar {
+								title-widget:
+									Adw.WindowTitle {
+										title: _('Shortcuts');
+									};
+							}
+
+							content:
+								Adw.PreferencesPage {
+									Adw.PreferencesGroup {
+										title: _('General');
+
+										Adw.ActionRow {
+											title: _('Quit');
+
+											[suffix]
+											$StvpkShortcutLabel {
+												action-name: 'app.quit';
+												valign: center;
+											}
+										}
+
+										Adw.ActionRow {
+											title: _('Primary menu');
+
+											[suffix]
+											$StvpkShortcutLabel {
+												accelerator: 'F10';
+												valign: center;
+											}
+										}
+
+										Adw.ActionRow {
+											title: _('New window');
+
+											[suffix]
+											$StvpkShortcutLabel {
+												action-name: 'app.new-window';
+												valign: center;
+											}
+										}
+
+										Adw.ActionRow {
+											title: _('Close window');
+
+											[suffix]
+											$StvpkShortcutLabel {
+												action-name: 'window.close';
+												valign: center;
+											}
+										}
+
+										Adw.ActionRow {
+											title: _('Preferences');
+
+											[suffix]
+											$StvpkShortcutLabel {
+												action-name: 'app.show-preferences';
+												valign: center;
+											}
+										}
+
+										Adw.ActionRow {
+											title: _('Keyboard Shortcuts');
+
+											[suffix]
+											$StvpkShortcutLabel {
+												action-name: 'app.show-help-alt';
+												valign: center;
+											}
+										}
+
+										Adw.ActionRow {
+											title: _('History');
+
+											[suffix]
+											$StvpkShortcutLabel {
+												action-name: 'app.show-history';
+												valign: center;
+											}
+										}
+									}
+
+									Adw.PreferencesGroup {
+										title: _('Browsing');
+
+										Adw.ActionRow {
+											title: _('Go back');
+
+											[suffix]
+											$StvpkShortcutLabel {
+												action-name: 'go-back';
+												valign: center;
+											}
+										}
+
+										Adw.ActionRow {
+											title: _('Go next');
+
+											[suffix]
+											$StvpkShortcutLabel {
+												action-name: 'go-next';
+												valign: center;
+											}
 										}
 									}
 								};

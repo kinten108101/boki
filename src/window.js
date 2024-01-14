@@ -23,7 +23,10 @@ import { bytes2humanreadable, expand_path, retract_path } from './utils/files.js
 import { DbServiceErrorEnum, db_service_error_quark } from './utils/error.js';
 import { HistoryItem } from './services/history.js';
 import { history } from './application.js';
+import { Preferences } from './widgets/pref.js';
+import { AboutPage } from './widgets/about-page.js';
 import { CustomSwipeTracker } from './widgets/swipe-tracker.js';
+import { ShortcutsPage } from './widgets/shortcuts-page.js';
 
 const g_list_box_bind_model =
 /**
@@ -542,6 +545,12 @@ export function Window(application, settings) {
 	const preview_page = PreviewPage(builder);
 
 	const progress_page = ProgressPage(builder, navigation_stack);
+
+	Preferences(builder);
+
+	AboutPage(builder);
+
+	ShortcutsPage(builder);
 
 	useCopyText(window, builder);
 

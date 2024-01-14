@@ -1,0 +1,3 @@
+/**
+ * @typedef {{ present: () => void }} ShortcutsViewController
+ */
