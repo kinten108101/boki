@@ -16,9 +16,10 @@ export const PreferencesPageController = () => {
 		navigation_stack.push_by_tag('preferences');
 	};
 
-	return {
-		present,
 	};
+	return [
+		present,
+	];
 };
 
 

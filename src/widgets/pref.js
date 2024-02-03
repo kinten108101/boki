@@ -8,7 +8,9 @@ import { sync_create } from '../lib/functional.js';
 import { retract_path } from '../utils/files.js';
 
 /**
- * @typedef {{ present: () => void; }} PreferencesController
+ * @typedef {[
+ * () => void,
+ * ]} PreferencesController
  */
 
 /**

@@ -22,7 +22,7 @@ export const PreferencesWindowController = () => {
 		window.set_transient_for(parent_window);
 	}
 
-	return {
-		present: () => window.present(),
-	};
+	return [
+		() => window.present(),
+	];
 };

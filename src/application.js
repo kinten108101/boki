@@ -12,7 +12,7 @@ import { retract_path } from './utils/files.js';
 import { Database } from './services/database.js';
 import { History } from './services/history.js';
 import { settings } from './utils/settings.js';
-import { PreferencesPageController as PreferencesController } from './widgets/pref-page.js';
+import { PreferencesPageController as usePreferences } from './widgets/pref-page.js';
 import { AboutPageController as AboutController } from './widgets/about-page.js';
 import { ShortcutsPageController as ShortcutsViewController } from './widgets/shortcuts-page.js';
 
@@ -127,7 +127,8 @@ const show_pref = new Gio.SimpleAction({
 	name: 'show-preferences'
 });
 show_pref.connect('activate', () => {
-	PreferencesController().present();
+	const [present] = usePreferences();
+	present();
 });
 application.add_action(show_pref);
 application.set_accels_for_action('app.show-preferences', ['<Primary>comma']);
