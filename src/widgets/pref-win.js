@@ -24,5 +24,6 @@ export const PreferencesWindowController = () => {
 
 	return [
 		() => window.present(),
+		(name, group) => window.insert_action_group(name, group),
 	];
 };

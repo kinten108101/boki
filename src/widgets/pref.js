@@ -10,6 +10,7 @@ import { retract_path } from '../utils/files.js';
 /**
  * @typedef {[
  * () => void,
+ * Gtk.Widget['insert_action_group'],
  * ]} PreferencesController
  */
 
