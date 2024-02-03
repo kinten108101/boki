@@ -25,6 +25,8 @@ script = [
 	'utils/markup.js',
 	'utils/settings.js',
 	'utils/string.js',
+	'widgets/playground/index.js',
+	'widgets/playground/page.js',
 	'widgets/about-page.js',
 	'widgets/about-win.js',
 	'widgets/about.js',

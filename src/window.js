@@ -27,6 +27,7 @@ import { Preferences } from './widgets/pref.js';
 import { AboutPage } from './widgets/about-page.js';
 import { CustomSwipeTracker } from './widgets/swipe-tracker.js';
 import { ShortcutsPage } from './widgets/shortcuts-page.js';
+import { Playground } from './widgets/playground/index.js';
 
 const g_list_box_bind_model =
 /**
@@ -551,6 +552,8 @@ export function Window(application, settings) {
 	AboutPage(builder);
 
 	ShortcutsPage(builder);
+
+	Playground(builder, window);
 
 	useCopyText(window, builder);
 

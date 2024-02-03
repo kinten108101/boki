@@ -35,6 +35,13 @@ Adw.PreferencesWindow preferences {
 		        	action-target: '("download-directory","")';
 		        }
 	    	}
+
+	    	Adw.ActionRow {
+	    		title: _("Playground");
+	    		subtitle: _("Play with experimental UI components and APIs");
+
+	    		action-name: 'preferences.show-playground';
+	    	}
     	}
 	}
 }

@@ -574,6 +574,25 @@ Adw.ApplicationWindow window {
 									        }
 								    	}
 							    	}
+
+							    	Adw.PreferencesGroup {
+							    		Adw.ActionRow {
+							    			icon-name: 'applications-science-symbolic';
+								    		title: _("Playground");
+								    		subtitle: _("Play with experimental UI components and APIs");
+								    		tooltip-text: _("Playground");
+								    		activatable-widget: preferences_show_playground_button;
+
+								    		Gtk.Button preferences_show_playground_button {
+								    			valign: center;
+									        	halign: center;
+									        	action-name: 'preferences.show-playground';
+									        	icon-name: 'go-next-symbolic';
+									        	tooltip-text: _("Playground");
+									        	styles ['flat']
+								    		}
+								    	}
+							    	}
 								};
 						};
 				}
@@ -706,6 +725,34 @@ Adw.ApplicationWindow window {
 								$GenericShortcutsFactory {
 									resource: '/com/github/kinten108101/Boki/ui/help-overlay.ui';
 									output: 'adw_preferences';
+								};
+						};
+				}
+
+				Adw.NavigationPage {
+					title: _('Playground');
+					tag: 'playground';
+					child:
+						Adw.ToolbarView {
+							[top]
+							Adw.HeaderBar {}
+
+							content:
+								Adw.PreferencesPage {
+									Adw.PreferencesGroup {
+										Adw.ActionRow {
+									        title: _("GUI Promiser");
+									        subtitle: "Select File";
+									        activatable-widget: playground_set_file_button;
+
+									        [suffix]
+									        Gtk.Button playground_set_file_button {
+									        	styles ['flat']
+									        	icon-name: 'document-open-symbolic';
+									          	valign: center;
+									        }
+									    }
+									}
 								};
 						};
 				}

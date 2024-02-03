@@ -15,6 +15,7 @@ import { settings } from './utils/settings.js';
 import { PreferencesPageController as usePreferences } from './widgets/pref-page.js';
 import { AboutPageController as AboutController } from './widgets/about-page.js';
 import { ShortcutsPageController as ShortcutsViewController } from './widgets/shortcuts-page.js';
+import { usePlaygroundPage as usePlayground } from './widgets/playground/page.js';
 
 const get_xdg_download_dir = async () => {
 	const proc = Gio.Subprocess.new(['xdg-user-dir', 'DOWNLOAD'], Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE);
@@ -127,7 +128,22 @@ const show_pref = new Gio.SimpleAction({
 	name: 'show-preferences'
 });
 show_pref.connect('activate', () => {
-	const [present] = usePreferences();
+	const [present, insert_action_group] = usePreferences();
+
+	const action_group = new Gio.SimpleActionGroup();
+
+	const show_playground = new Gio.SimpleAction({
+		name: 'show-playground',
+	});
+	show_playground.connect('activate', () => {
+		const [present] = usePlayground();
+
+		present();
+	});
+	action_group.add_action(show_playground);
+
+	insert_action_group('preferences', action_group);
+
 	present();
 });
 application.add_action(show_pref);
