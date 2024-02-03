@@ -15,6 +15,7 @@ script = [
 	'lib/toaster-provider.js',
 	'lib/tracker-functional.js',
 	'lib/tracker.js',
+	'lib/window-promiser.js',
 	'services/database.js',
 	'services/download.js',
 	'services/history.js',
