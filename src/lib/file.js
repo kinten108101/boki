@@ -1,6 +1,5 @@
 import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
-import Gdk from 'gi://Gdk';
 import Gtk from 'gi://Gtk';
 
 import { get_object_from_formatting_string } from './builder-fmtstr.js';
@@ -51,7 +50,8 @@ export const useFile = (widget, builder, parent_window) => {
 		if (!Array.isArray(values))
 			throw new Error;
 
-		Gtk.show_uri(TRANSIENT ? (parent_window || null) : null, `file://${values[0]}`, Gdk.CURRENT_TIME);
+		const launcher = Gtk.FileLauncher.new(Gio.File.new_for_uri(`file://${values[0]}`));
+		launcher.open_containing_folder(TRANSIENT ? (parent_window || null) : null, null);
 	});
 	action_group.add_action(explore);
 

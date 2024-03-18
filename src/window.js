@@ -101,15 +101,8 @@ const HistoryPage = (builder, history_model, signals) => {
 				}));
 				return;
 			}
-			const folder = item.saved_location.get_parent();
-			if (folder === null || (folder !== null && !folder?.query_exists(null))) {
-				toaster()?.add_toast(new Adw.Toast({
-					title: _('Cannot open folder'),
-					timeout: TOAST_TIMEOUT_SHORT,
-				}));
-				return;
-			}
-			Gtk.show_uri(null, folder.get_uri() || '', Gdk.CURRENT_TIME);
+			const launcher = Gtk.FileLauncher.new(item.saved_location);
+			launcher.open_containing_folder(null, null);
 		});
 
 		return row;

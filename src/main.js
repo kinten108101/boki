@@ -21,6 +21,7 @@ Gio._promisify(Tracker.Batch.prototype, 'execute_async', 'execute_finish');
 // Gio._promisify(Tracker.SparqlStatement.prototype, 'execute_async', 'execute_finish');
 Gio._promisify(Tracker.SparqlCursor.prototype, 'next_async', 'next_finish');
 Gio._promisify(Tracker.SparqlConnection.prototype, 'update_async', 'update_finish');
+Gio._promisify(Gtk.FileLauncher.prototype, 'open_containing_folder', 'open_containing_folder_finish');
 
 /* Gio.Subprocess */
 Gio._promisify(Gio.Subprocess.prototype, 'communicate_async');
